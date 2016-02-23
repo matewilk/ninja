@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -368,13 +368,15 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _config = __webpack_require__(12);
+	__webpack_require__(24);
+
+	__webpack_require__(23);
+
+	__webpack_require__(25);
+
+	var _config = __webpack_require__(13);
 
 	var _config2 = _interopRequireDefault(_config);
-
-	__webpack_require__(17);
-
-	__webpack_require__(16);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64401,6 +64403,191 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+	      value: true
+	});
+
+	exports.default = function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $document, $mdMedia, $mdDialog) {
+	      $scope.toggleLeft = buildToggler('left');
+	      $scope.isOpenLeft = function () {
+	            return $mdSidenav('left').isOpen();
+	      };
+	      $scope.close = function () {
+	            $mdSidenav('left').close();
+	      };
+
+	      function buildToggler(navID) {
+	            return function () {
+	                  $mdSidenav(navID).toggle();
+	            };
+	      }
+
+	      $scope.user = {
+	            title: 'Senior Web Developer',
+	            location: 'London',
+	            company: 'BBC'
+	      };
+
+	      $scope.$watch('skills', function (newVal, oldVal) {
+	            //can't refer to the oldVal as it will create infinite loop
+	            $scope.skills = {
+	                  javascript: 85,
+	                  html: 80,
+	                  css: 80
+	            };
+	      }, true);
+
+	      $scope.showAdvanced = function (ev) {
+	            var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+	            $mdDialog.show({
+	                  controller: 'ResumeDialogController',
+	                  template: __webpack_require__(21),
+	                  parent: angular.element(document.body),
+	                  targetEvent: ev,
+	                  clickOutsideToClose: true,
+	                  fullscreen: useFullScreen
+	            }).then(function (answer) {
+	                  $scope.status = 'You said the information was "' + answer + '".';
+	            }, function () {
+	                  $scope.status = 'You cancelled the dialog.';
+	            });
+	            $scope.$watch(function () {
+	                  return $mdMedia('xs') || $mdMedia('sm');
+	            }, function (wantsFullScreen) {
+	                  $scope.customFullscreen = wantsFullScreen === true;
+	            });
+	      };
+
+	      $scope.side = '';
+
+	      $scope.events = [{
+	            badgeClass: 'warning',
+	            side: 'Right',
+	            badgeIconClass: 'place',
+	            title: 'Senior Web Developer',
+	            company: 'BBC',
+	            when: '2016 - present',
+	            content: ['Creating prototype and developing award winning BBC\'s Authentication Tool app.', 'Creating prototype and taking active part in designing responsive version of BBC\'s CMS (iSite2)', 'Developing responsive components and delivering new functionalities for the product (iSite2)', 'Collaborating with other BBC\'s teams to ensure best product functionality and compatibility', 'Advising the Product Manager or Technical Project Manager to ensure that all technical possibilities are explored and that products achieve the best possible look, feel and functionality', 'Evaluating time needed to develop certain features and developing the features in a given timescale', 'Suggesting and using solutions and libraries to shorten development time and/or effort', 'Advise on strategic technology issues', 'Assistance with recruitment', 'Mentoring and coaching of less experienced members of the team', 'Developing new features and products for the organisation', 'Redesigning existing functionality using proven development methodologies, processes and patterns along with the latest technology', 'Estimating Stories (Agile Scrum) development time, breaking them down into tasks and making sure they are delivered in a given timeframe (Sprint) - panning and prioritizing tasks', 'Resolving accessibility, usability and cross browser issues', 'Working with 3rd party products/libraries'],
+	            long: true,
+	            tools: 'Plain Javascript, React.js, Node.js, Backbone.js, Require.js, Express.js, ES6, ' + 'Sass, Bootstrap, Angular-Material, ' + 'Behat, PhpUnit, Mocha, Chai, Sinon, Jasmine, ' + 'Hudson, Heroku, AWS, Jenkins, AWS CodeDeploy and CodePipeline, ' + 'Bower, Grunt, Vagrant, Webpack, Require, Yeoman, Jshint, JsLint, JsBin, Js minifiers and more ...',
+	            toolsIcon: 'developer_mode'
+	      }, {
+	            badgeClass: 'warning',
+	            side: 'Left',
+	            badgeIconClass: 'place',
+	            title: 'Courses',
+	            company: 'BBC',
+	            when: '2014 - 2016',
+	            content: ['Code Reviews', 'Continuous Integration', 'Pair Programming', 'Behavioral Driven Development', 'Test Driven Development', 'HTML5 for Mobile and Web', 'Microservices', 'Agile Scrum']
+	      }, {
+	            badgeClass: 'warning',
+	            side: 'Right',
+	            badgeIconClass: 'place',
+	            title: 'Independent Coursework and Conferences',
+	            when: '2014 - 2015',
+	            content: ['AWS:reInvent 2015 conference Las Vegas', 'MongoDB for Node.js Developers', 'Node.js meet-ups', 'React.js meet-ups', 'Backbone.js meet-ups', 'Meet.js meet-ups', 'Front-Trends 2013 & 2014 conference']
+	      }, {
+	            badgeClass: 'warning',
+	            side: 'Left',
+	            badgeIconClass: 'place',
+	            title: 'Web Developer',
+	            company: 'BBC',
+	            when: '2014 - 2015',
+	            content: ['Front-end development of BBC\'s CMS (iSite2) used by Programmes, Sport, Blogs, Children in Need, Learning English and other BBC pages', 'Developing new functionalities and modifying existing ones', 'Improving code modularity, usability and testability', 'Rewriting legacy code using latest technologies into more maintanable modules', 'Moving logic from back to front-end', 'Code reviews', 'Pair programming'],
+	            tools: 'React.js, Node.js, Backbone.js, Require.js, Express.js, Jasmine.js, Hudson, Grunt, Zend Framework, Bootstrap',
+	            toolsIcon: 'keyboard'
+	      }, {
+	            badgeClass: 'info',
+	            side: 'Right',
+	            badgeIconClass: 'assignment_ind',
+	            title: 'Software Developer',
+	            company: 'Arbor Education',
+	            when: '2013 - 2014',
+	            content: ['Student benchmarking, analytics, and Management Information Systems for schools development', 'GUI implementation', 'Responsive components development'],
+	            tools: 'Javascript, ExtJs, PHP, Zend Framework',
+	            toolsIcon: 'mouse'
+	      }, {
+	            badgeClass: 'warning',
+	            side: 'Left',
+	            badgeIconClass: 'place',
+	            title: 'Web/Javascript Developer',
+	            company: 'Focus Telecom',
+	            when: '2010 - 2013',
+	            content: ['Development, modifications and new functionality implementation in Javascript based CRM', 'Call center system development', 'Front-end components implementation', 'User interface desing & usability design', 'Data visualization', 'GUI implementation', 'Application architecture implementation', 'Back-end and SQL development', 'Full responsibility over one of the main company\'s products'],
+	            tools: 'Javascript, ExtJs, jQuery, css, html, PHP, Zend Framework, DbDesigner, PostgreSQL',
+	            toolsIcon: 'developer_mode'
+	      }, {
+	            badgeClass: 'info',
+	            side: 'Right',
+	            badgeIconClass: 'assignment_ind',
+	            title: 'Programmer Javascript/PHP/SQL',
+	            company: 'Expanse',
+	            when: '2009 - 2010',
+	            content: ['Vehicle monitoring, controll and localization application development', 'GUI implementation', 'Application architecture implementation', 'Database design assistance', 'Writing SQL queries and procedures'],
+	            tools: 'Javascript, ExtJs, Ajax, PHP, Zend Framework, DbDesigner, PostgreSQL',
+	            toolsIcon: 'keyboard'
+	      }, {
+	            badgeClass: 'warning',
+	            side: 'Left',
+	            badgeIconClass: 'place',
+	            title: 'Freelancer Web enthusiast',
+	            when: '2008 - 2009',
+	            content: ['Web services functionality development and modification', 'Templates and forms creation', 'Scripting', 'Web pages development', 'Web shops modification'],
+	            tools: 'PHP, HTML, CSS, JavaScript',
+	            toolsIcon: 'videogame_asset'
+	      }, {
+	            badgeClass: 'warning',
+	            side: 'Right',
+	            badgeIconClass: 'school',
+	            title: 'Master of Science',
+	            when: '2009',
+	            content: ['Mail client with artifical inteligence adaptive anti spam filtering algorithm'],
+	            tools: 'Javascript, PHP, SQL',
+	            toolsIcon: 'memory'
+	      }, {
+	            badgeClass: 'info',
+	            side: 'Left',
+	            badgeIconClass: 'star',
+	            title: 'IT intern',
+	            company: 'Inoxpa Spain',
+	            when: '2007 - 2008',
+	            content: ['Share Point Services 3.0 implementation and server administration', 'Users intervies and UML diagrams development', 'System requirements analysis'],
+	            tools: 'Visual Studio .NET, Microsoft Windows Server 2005, Miscrosoft Web Developer',
+	            toolsIcon: 'developer_board'
+	      }, {
+	            badgeClass: 'info',
+	            side: 'Right',
+	            badgeIconClass: 'public',
+	            title: 'IAESTE Scholarship program',
+	            company: 'Universitat de Girona',
+	            when: '2007 - 2008',
+	            content: ['Faculty of Information and Computer Science']
+	      }, {
+	            badgeClass: 'warning',
+	            side: 'Left',
+	            badgeIconClass: 'school',
+	            title: 'Techical University of Lodz',
+	            when: '2003 - 2009',
+	            content: ['Faculty of Electrical, Electronic, Computer and Control Engineering.', 'Member of Microprocessor Autonomous Systems Academic Club - MIPSA.']
+	      }];
+
+	      $scope.addEvent = function () {
+	            $scope.events.push({
+	                  badgeClass: 'info',
+	                  badgeIconClass: 'glyphicon-check',
+	                  title: 'Dynamic heading',
+	                  when: '3 hours ago via Twitter',
+	                  content: 'Some awesome content.'
+	            });
+	      };
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
@@ -64416,6 +64603,10 @@
 
 	var _angularMaterial2 = _interopRequireDefault(_angularMaterial);
 
+	var _mainController = __webpack_require__(12);
+
+	var _mainController2 = _interopRequireDefault(_mainController);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var app = _angular2.default.module('app', [_angularUiRouter2.default, _angularMaterial2.default]);
@@ -64424,15 +64615,15 @@
 	    $urlRouterProvider.otherwise('/');
 	    $stateProvider.state('main', {
 	        url: '/',
-	        template: __webpack_require__(15)
+	        template: __webpack_require__(22)
 	    });
 	    $locationProvider.html5Mode(true);
-	});
+	}).controller('MainCtrl', _mainController2.default);
 
 	exports.default = app;
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.e = __webpack_require__(1)();
@@ -64446,7 +64637,7 @@
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.e = __webpack_require__(1)();
@@ -64460,19 +64651,63 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.e = __webpack_require__(1)();
+	// imports
+
+
+	// module
+	exports.push([module.i, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(17) + "); /* For IE6-8 */\n  src: local('Material Icons'),\n       local('MaterialIcons-Regular'),\n       url(" + __webpack_require__(20) + ") format('woff2'),\n       url(" + __webpack_require__(19) + ") format('woff'),\n       url(" + __webpack_require__(18) + ") format('truetype');\n}\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;  /* Preferred icon size */\n  display: inline-block;\n  width: 1em;\n  height: 1em;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n\n  /* Support for all WebKit browsers. */\n  -webkit-font-smoothing: antialiased;\n  /* Support for Safari and Chrome. */\n  text-rendering: optimizeLegibility;\n\n  /* Support for Firefox. */\n  -moz-osx-font-smoothing: grayscale;\n\n  /* Support for IE. */\n  font-feature-settings: 'liga';\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.eot?e79bfd88537def476913f3ed52f4f4b3";
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.ttf?a37b0c01c0baf1888ca812cc0508f6e2";
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.woff?3c3d0242794b4682460a3f7c7a2126ee";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.woff2?c58629e330eaf128316a142320407d74";
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = "<md-dialog>\n    <md-toolbar>\n      <div class=\"md-toolbar-tools\">\n        <div>{{contents[0].title}}</div>\n        <span flex></span>\n        <div ng-style=\"{'color': 'rgba(0,0,0,0.54)'}\"><span>{{ contents[0].company +' '+contents[0].when }}</span></div>\n        <span flex></span>\n        <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n          <md-icon class=\"material-icons\" aria-label=\"Close dialog\">close</md-icon>\n        </md-button>\n      </div>\n    </md-toolbar>\n    <md-dialog-content layout-padding>\n        <div ng-repeat=\"content in contents\">\n            <p>Responsibilities:</p>\n            <div ng-repeat=\"responsibility in content.responsibilities\">\n                <md-checkbox ng-disabled=\"true\" class=\"red\" ng-model=\"checked\" ng-init=\"checked=true\">\n                    {{responsibility}}\n                </md-checkbox>\n            </div>\n            <md-divider></md-divider>\n            <md-list layout=\"column\" layout-xs=\"row\" layout-align=\"center start\">\n              <md-list-item class=\"md-1-line\">\n                <md-icon class=\"material-icons\" ng-style=\"{'font-size': 30 + 'px', height: 30 + 'px'}\">{{content.toolsIcon}}</md-icon>\n                <div class=\"md-list-item-text\">\n                    <div ng-repeat=\"tool in content.tools\" layout=\"column\">\n                        <md-list>\n                            <md-list-item class=\"md-2-line\">\n                                <div class=\"md-list-item-text\">\n                                  <h3>{{tool.name}}</h3>\n                                  <p>{{tool.tools}}</p>\n                                  <md-divider></md-divider>\n                                </div>\n                            </md-list-item>\n                        </md-list>\n                    </div>\n                </div>\n              </md-list-item>\n            </md-list>\n        </div>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n      <span flex></span>\n      <md-button ng-click=\"cancel()\" style=\"margin-right:20px;\">\n        Close\n      </md-button>\n    </md-dialog-actions>\n</md-dialog>\n"
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = "<md-content layout-padding>\n    <div>Main View yay!</div>\n</md-content>\n"
 
 /***/ },
-/* 16 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(13);
+	var content = __webpack_require__(14);
 	if(typeof content === 'string') content = [[module.i, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -64492,13 +64727,13 @@
 	}
 
 /***/ },
-/* 17 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(14);
+	var content = __webpack_require__(15);
 	if(typeof content === 'string') content = [[module.i, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -64518,7 +64753,33 @@
 	}
 
 /***/ },
-/* 18 */
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(16);
+	if(typeof content === 'string') content = [[module.i, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(2)(content, {});
+	if(content.locals) module.e = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../css-loader/index.js!./material-icons.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./material-icons.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__(3);
