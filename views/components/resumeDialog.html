@@ -1,0 +1,48 @@
+<md-dialog>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <div>{{contents[0].title}}</div>
+        <span flex></span>
+        <div ng-style="{'color': 'rgba(0,0,0,0.54)'}"><span>{{ contents[0].company +' '+contents[0].when }}</span></div>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <div ng-repeat="content in contents">
+            <p>Responsibilities:</p>
+            <div ng-repeat="responsibility in content.responsibilities">
+                <md-checkbox ng-disabled="true" class="red" ng-model="checked" ng-init="checked=true">
+                    {{responsibility}}
+                </md-checkbox>
+            </div>
+            <md-divider></md-divider>
+            <md-list layout="column" layout-xs="row" layout-align="center start">
+              <md-list-item class="md-1-line">
+                <md-icon class="material-icons" ng-style="{'font-size': 30 + 'px', height: 30 + 'px'}">{{content.toolsIcon}}</md-icon>
+                <div class="md-list-item-text">
+                    <div ng-repeat="tool in content.tools" layout="column">
+                        <md-list>
+                            <md-list-item class="md-2-line">
+                                <div class="md-list-item-text">
+                                  <h3>{{tool.name}}</h3>
+                                  <p>{{tool.tools}}</p>
+                                  <md-divider></md-divider>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+                </div>
+              </md-list-item>
+            </md-list>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()" style="margin-right:20px;">
+        Close
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>
