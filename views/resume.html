@@ -1,0 +1,42 @@
+<timeline>
+    <timeline-node ng-repeat="event in events" side="{{event.side | lowercase}}" >
+        <timeline-badge in-view="thisIsInView = $inview" ng-class="{ 'animated fadeIn{{event.side}}' :thisIsInView }" class="{{event.badgeClass}} md-whiteframe-z2">
+            <md-icon class="material-icons">{{event.badgeIconClass}}</md-icon>
+        </timeline-badge>
+        <timeline-panel in-view="thisIsInView = $inview" ng-class="{ 'animated fadeIn{{event.side}}':thisIsInView }" class="{{event.badgeClass}}">
+            <timeline-heading>
+                <p>
+                    <div>{{event.title}}</div>
+                    <div ng-style="{'color': 'rgba(0,0,0,0.54)'}">{{(event.company) && 'at ' + event.company +' '+event.when || event.when}}</div>
+                </p>
+            </timeline-heading>
+            <div ng-if="event.long != true">
+                <div ng-repeat="content in event.content">
+                    <md-checkbox ng-disabled="true" class="red" ng-model="checked" ng-init="checked=true">
+                        {{content}}
+                    </md-checkbox>
+                </div>
+                <div ng-if="event.tools">
+                    <md-divider></md-divider>
+                    <md-list layout="column" layout-align="center start">
+                      <md-list-item class="md-1-line">
+                        <md-icon class="material-icons" ng-style="{'font-size': 30 + 'px', height: 30 + 'px'}">{{event.toolsIcon}}</md-icon>
+                        <div class="md-list-item-text">
+                          <p>{{event.tools}}</p>
+                        </div>
+                      </md-list-item>
+                    </md-list>
+                </div>
+            </div>
+            <div ng-if="event.long == true">
+                <div layout="column" layout-align="center center">
+                    <p>This one is quite descriptive, please </p>
+                    <md-button class="md-primary md-raised" ng-click="showAdvanced($event)">
+                      See here
+                    </md-button>
+                </div>
+            </div>
+
+        </timeline-panel>
+    </timeline-node>
+</timeline>

@@ -1,3 +1,53 @@
-body {
-    background-color: green;
+@import './animate.css';
+@import './material-overrides';
+
+#background-gradient {
+  background: #3F51B5; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #3F51B5 , #7986CB); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #3F51B5, #7986CB); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #3F51B5, #7986CB); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #3F51B5 , #7986CB); /* Standard syntax */
+}
+
+section img {
+  margin: 0 auto;
+}
+
+//main section with image for landscape images (?)
+.section-full-screen {
+  height:100vh;
+  overflow-x: hidden;
+  margin: 0 auto;
+  .inner {
+    display: inline-block;
+    position:relative;
+    right: -50%;
+    img {
+      height: 100vh;
+      position: relative;
+      left: -50%
+    }
+  }
+}
+
+@media (min-width: 600px) {
+    #speed-dial-desktop {
+        top: 26px;
+    }
+
+    #resume-button {
+        right: 80px;
+    }
+}
+
+@media (min-width: 742px) {
+    #speed-dial-desktop {
+        top: 20px;
+    }
+}
+
+@media (min-width: 960px) {
+    #speed-dial-desktop {
+        top: 36px;
+    }
 }

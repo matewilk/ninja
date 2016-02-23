@@ -3,7 +3,14 @@ import uiRouter from 'angular-ui-router';
 import angularMaterial from 'angular-material';
 import mainController from '../controllers/mainController'
 
-const app = angular.module('app', [uiRouter, angularMaterial]);
+const app = angular.module('app', [
+    uiRouter,
+    angularMaterial,
+    'duScroll',
+    'ngAnimate',
+    'angular-timeline',
+    'angular-inview',
+]);
 
 app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
     $urlRouterProvider.otherwise('/');
