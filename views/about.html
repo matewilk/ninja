@@ -1,0 +1,53 @@
+<div layout="row" layout-sm="column" layout-xs="column">
+    <div flex-gt-sm="33" flex-sm="100">
+        <md-content layout-padding>
+            <!-- midia query here for below div to aligh image left if not sm -->
+            <div style="margin: 0 auto; width:150px;">
+                <img ng-src="images/my_face.png" style="border-radius: 50%">
+            </div>
+        </md-content>
+    </div>
+    <div flex>
+        <md-content layout-padding layout="row" layout-align="center center">
+            I'm below on mobile, and to the right on larger devices.
+        </md-content>
+    </div>
+</div>
+
+<div id="current-role" layout="row" layout-sm="column" layout-xs="column">
+    <div flex>
+        <md-content layout-padding>
+            <form>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Current Role</label>
+                    <input ng-model="user.title" disabled>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Current Company</label>
+                    <input ng-model="user.company" disabled>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Current Location</label>
+                    <input ng-model="user.location" disabled>
+                </md-input-container>
+            </form>
+        </md-content>
+    </div>
+    <div flex>
+        <!-- media query padding-top 30px for wider than sm || align labels left for sm -->
+        <md-content layout-padding>
+            <div>
+                <p>Javascript</p>
+                <md-progress-linear md-mode="determinate" class="md-accent" value="{{skills.javascript}}"></md-progress-linear>
+            </div>
+            <div>
+                <p>Html</p>
+                <md-progress-linear md-mode="determinate" value="{{skills.html}}"></md-progress-linear>
+            </div>
+            <div>
+                <p>Css</p>
+                <md-progress-linear md-mode="determinate" value="{{skills.css}}"></md-progress-linear>
+            </div>
+        </md-content>
+    </div>
+</div>

@@ -1,3 +1,28 @@
-<md-content layout-padding>
-    <div>Main View yay!</div>
-</md-content>
+<div id="background-gradient" style="position: absolute; width:100%; height:25%; box-shadow: inset 0 -10px 10px -10px #000000;"></div>
+
+<div layout="column" layout-align="center stretch" id="section-main" style="padding-top:10%">
+    <div layout="row">
+        <md-card flex-gt-sm="80" flex-sm="100" flex-xs="100" flex-offset-gt-sm="10" class="md-whiteframe-z2" style="position:relative">
+            <div ng-include src="'views/about.html'"></div>
+        </md-card>
+        <div flex hide-sm hide-xs></div>
+    </div>
+    <div layout="row">
+        <md-card id="section-2" flex-gt-sm="80" flex-sm="100" flex-xs="100" flex-offset-gt-sm="10" class="md-whiteframe-z2" style="position:relative">
+            <div ng-include src="'views/experience.html'"></div>
+        </md-card>
+        <div flex hide-sm hide-xs></div>
+    </div>
+    <div layout="row">
+        <md-card id="section-3" flex-gt-sm="80" flex-sm="100" flex-xs="100" flex-offset-gt-sm="10" class="md-whiteframe-z2" style="position:relative">
+            <div ng-include src="'views/mytags.html'"></div>
+        </md-card>
+        <div flex hide-sm hide-xs></div>
+    </div>
+    <div>
+        <md-card id="section-4" flex-gt-sm="80" flex-sm="100" flex-xs="100" flex-offset-gt-sm="10" class="md-whiteframe-z2">
+            <div ng-include src="'views/contact.html'"></div>
+        </md-card>
+        <div flex hide-sm hide-xs></div>
+    </div>
+</div>

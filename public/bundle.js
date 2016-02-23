@@ -37,14 +37,14 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(15);
+	__webpack_require__(17);
 	module.e = angular;
 
 
@@ -376,23 +376,23 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	__webpack_require__(12);
+	__webpack_require__(14);
 
 	__webpack_require__(3);
 
-	__webpack_require__(13);
+	__webpack_require__(15);
 
-	__webpack_require__(30);
+	__webpack_require__(39);
 
 	__webpack_require__(8);
 
-	__webpack_require__(31);
+	__webpack_require__(40);
 
-	__webpack_require__(29);
+	__webpack_require__(38);
 
-	__webpack_require__(32);
+	__webpack_require__(41);
 
-	var _config = __webpack_require__(17);
+	var _config = __webpack_require__(25);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -29788,6 +29788,707 @@
 
 /***/ },
 /* 11 */
+/***/ function(module, exports) {
+
+	/**
+	 * @license AngularJS v1.5.0
+	 * (c) 2010-2016 Google, Inc. http://angularjs.org
+	 * License: MIT
+	 */
+	(function(window, angular, undefined) {'use strict';
+
+	/* jshint ignore:start */
+	// this code is in the core, but not in angular-messages.js
+	var isArray = angular.isArray;
+	var forEach = angular.forEach;
+	var isString = angular.isString;
+	var jqLite = angular.element;
+	/* jshint ignore:end */
+
+	/**
+	 * @ngdoc module
+	 * @name ngMessages
+	 * @description
+	 *
+	 * The `ngMessages` module provides enhanced support for displaying messages within templates
+	 * (typically within forms or when rendering message objects that return key/value data).
+	 * Instead of relying on JavaScript code and/or complex ng-if statements within your form template to
+	 * show and hide error messages specific to the state of an input field, the `ngMessages` and
+	 * `ngMessage` directives are designed to handle the complexity, inheritance and priority
+	 * sequencing based on the order of how the messages are defined in the template.
+	 *
+	 * Currently, the ngMessages module only contains the code for the `ngMessages`, `ngMessagesInclude`
+	 * `ngMessage` and `ngMessageExp` directives.
+	 *
+	 * # Usage
+	 * The `ngMessages` directive listens on a key/value collection which is set on the ngMessages attribute.
+	 * Since the {@link ngModel ngModel} directive exposes an `$error` object, this error object can be
+	 * used with `ngMessages` to display control error messages in an easier way than with just regular angular
+	 * template directives.
+	 *
+	 * ```html
+	 * <form name="myForm">
+	 *   <label>
+	 *     Enter text:
+	 *     <input type="text" ng-model="field" name="myField" required minlength="5" />
+	 *   </label>
+	 *   <div ng-messages="myForm.myField.$error" role="alert">
+	 *     <div ng-message="required">You did not enter a field</div>
+	 *     <div ng-message="minlength, maxlength">
+	 *       Your email must be between 5 and 100 characters long
+	 *     </div>
+	 *   </div>
+	 * </form>
+	 * ```
+	 *
+	 * Now whatever key/value entries are present within the provided object (in this case `$error`) then
+	 * the ngMessages directive will render the inner first ngMessage directive (depending if the key values
+	 * match the attribute value present on each ngMessage directive). In other words, if your errors
+	 * object contains the following data:
+	 *
+	 * ```javascript
+	 * <!-- keep in mind that ngModel automatically sets these error flags -->
+	 * myField.$error = { minlength : true, required : true };
+	 * ```
+	 *
+	 * Then the `required` message will be displayed first. When required is false then the `minlength` message
+	 * will be displayed right after (since these messages are ordered this way in the template HTML code).
+	 * The prioritization of each message is determined by what order they're present in the DOM.
+	 * Therefore, instead of having custom JavaScript code determine the priority of what errors are
+	 * present before others, the presentation of the errors are handled within the template.
+	 *
+	 * By default, ngMessages will only display one error at a time. However, if you wish to display all
+	 * messages then the `ng-messages-multiple` attribute flag can be used on the element containing the
+	 * ngMessages directive to make this happen.
+	 *
+	 * ```html
+	 * <!-- attribute-style usage -->
+	 * <div ng-messages="myForm.myField.$error" ng-messages-multiple>...</div>
+	 *
+	 * <!-- element-style usage -->
+	 * <ng-messages for="myForm.myField.$error" multiple>...</ng-messages>
+	 * ```
+	 *
+	 * ## Reusing and Overriding Messages
+	 * In addition to prioritization, ngMessages also allows for including messages from a remote or an inline
+	 * template. This allows for generic collection of messages to be reused across multiple parts of an
+	 * application.
+	 *
+	 * ```html
+	 * <script type="text/ng-template" id="error-messages">
+	 *   <div ng-message="required">This field is required</div>
+	 *   <div ng-message="minlength">This field is too short</div>
+	 * </script>
+	 *
+	 * <div ng-messages="myForm.myField.$error" role="alert">
+	 *   <div ng-messages-include="error-messages"></div>
+	 * </div>
+	 * ```
+	 *
+	 * However, including generic messages may not be useful enough to match all input fields, therefore,
+	 * `ngMessages` provides the ability to override messages defined in the remote template by redefining
+	 * them within the directive container.
+	 *
+	 * ```html
+	 * <!-- a generic template of error messages known as "my-custom-messages" -->
+	 * <script type="text/ng-template" id="my-custom-messages">
+	 *   <div ng-message="required">This field is required</div>
+	 *   <div ng-message="minlength">This field is too short</div>
+	 * </script>
+	 *
+	 * <form name="myForm">
+	 *   <label>
+	 *     Email address
+	 *     <input type="email"
+	 *            id="email"
+	 *            name="myEmail"
+	 *            ng-model="email"
+	 *            minlength="5"
+	 *            required />
+	 *   </label>
+	 *   <!-- any ng-message elements that appear BEFORE the ng-messages-include will
+	 *        override the messages present in the ng-messages-include template -->
+	 *   <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *     <!-- this required message has overridden the template message -->
+	 *     <div ng-message="required">You did not enter your email address</div>
+	 *
+	 *     <!-- this is a brand new message and will appear last in the prioritization -->
+	 *     <div ng-message="email">Your email address is invalid</div>
+	 *
+	 *     <!-- and here are the generic error messages -->
+	 *     <div ng-messages-include="my-custom-messages"></div>
+	 *   </div>
+	 * </form>
+	 * ```
+	 *
+	 * In the example HTML code above the message that is set on required will override the corresponding
+	 * required message defined within the remote template. Therefore, with particular input fields (such
+	 * email addresses, date fields, autocomplete inputs, etc...), specialized error messages can be applied
+	 * while more generic messages can be used to handle other, more general input errors.
+	 *
+	 * ## Dynamic Messaging
+	 * ngMessages also supports using expressions to dynamically change key values. Using arrays and
+	 * repeaters to list messages is also supported. This means that the code below will be able to
+	 * fully adapt itself and display the appropriate message when any of the expression data changes:
+	 *
+	 * ```html
+	 * <form name="myForm">
+	 *   <label>
+	 *     Email address
+	 *     <input type="email"
+	 *            name="myEmail"
+	 *            ng-model="email"
+	 *            minlength="5"
+	 *            required />
+	 *   </label>
+	 *   <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *     <div ng-message="required">You did not enter your email address</div>
+	 *     <div ng-repeat="errorMessage in errorMessages">
+	 *       <!-- use ng-message-exp for a message whose key is given by an expression -->
+	 *       <div ng-message-exp="errorMessage.type">{{ errorMessage.text }}</div>
+	 *     </div>
+	 *   </div>
+	 * </form>
+	 * ```
+	 *
+	 * The `errorMessage.type` expression can be a string value or it can be an array so
+	 * that multiple errors can be associated with a single error message:
+	 *
+	 * ```html
+	 *   <label>
+	 *     Email address
+	 *     <input type="email"
+	 *            ng-model="data.email"
+	 *            name="myEmail"
+	 *            ng-minlength="5"
+	 *            ng-maxlength="100"
+	 *            required />
+	 *   </label>
+	 *   <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *     <div ng-message-exp="'required'">You did not enter your email address</div>
+	 *     <div ng-message-exp="['minlength', 'maxlength']">
+	 *       Your email must be between 5 and 100 characters long
+	 *     </div>
+	 *   </div>
+	 * ```
+	 *
+	 * Feel free to use other structural directives such as ng-if and ng-switch to further control
+	 * what messages are active and when. Be careful, if you place ng-message on the same element
+	 * as these structural directives, Angular may not be able to determine if a message is active
+	 * or not. Therefore it is best to place the ng-message on a child element of the structural
+	 * directive.
+	 *
+	 * ```html
+	 * <div ng-messages="myForm.myEmail.$error" role="alert">
+	 *   <div ng-if="showRequiredError">
+	 *     <div ng-message="required">Please enter something</div>
+	 *   </div>
+	 * </div>
+	 * ```
+	 *
+	 * ## Animations
+	 * If the `ngAnimate` module is active within the application then the `ngMessages`, `ngMessage` and
+	 * `ngMessageExp` directives will trigger animations whenever any messages are added and removed from
+	 * the DOM by the `ngMessages` directive.
+	 *
+	 * Whenever the `ngMessages` directive contains one or more visible messages then the `.ng-active` CSS
+	 * class will be added to the element. The `.ng-inactive` CSS class will be applied when there are no
+	 * messages present. Therefore, CSS transitions and keyframes as well as JavaScript animations can
+	 * hook into the animations whenever these classes are added/removed.
+	 *
+	 * Let's say that our HTML code for our messages container looks like so:
+	 *
+	 * ```html
+	 * <div ng-messages="myMessages" class="my-messages" role="alert">
+	 *   <div ng-message="alert" class="some-message">...</div>
+	 *   <div ng-message="fail" class="some-message">...</div>
+	 * </div>
+	 * ```
+	 *
+	 * Then the CSS animation code for the message container looks like so:
+	 *
+	 * ```css
+	 * .my-messages {
+	 *   transition:1s linear all;
+	 * }
+	 * .my-messages.ng-active {
+	 *   // messages are visible
+	 * }
+	 * .my-messages.ng-inactive {
+	 *   // messages are hidden
+	 * }
+	 * ```
+	 *
+	 * Whenever an inner message is attached (becomes visible) or removed (becomes hidden) then the enter
+	 * and leave animation is triggered for each particular element bound to the `ngMessage` directive.
+	 *
+	 * Therefore, the CSS code for the inner messages looks like so:
+	 *
+	 * ```css
+	 * .some-message {
+	 *   transition:1s linear all;
+	 * }
+	 *
+	 * .some-message.ng-enter {}
+	 * .some-message.ng-enter.ng-enter-active {}
+	 *
+	 * .some-message.ng-leave {}
+	 * .some-message.ng-leave.ng-leave-active {}
+	 * ```
+	 *
+	 * {@link ngAnimate Click here} to learn how to use JavaScript animations or to learn more about ngAnimate.
+	 */
+	angular.module('ngMessages', [])
+
+	   /**
+	    * @ngdoc directive
+	    * @module ngMessages
+	    * @name ngMessages
+	    * @restrict AE
+	    *
+	    * @description
+	    * `ngMessages` is a directive that is designed to show and hide messages based on the state
+	    * of a key/value object that it listens on. The directive itself complements error message
+	    * reporting with the `ngModel` $error object (which stores a key/value state of validation errors).
+	    *
+	    * `ngMessages` manages the state of internal messages within its container element. The internal
+	    * messages use the `ngMessage` directive and will be inserted/removed from the page depending
+	    * on if they're present within the key/value object. By default, only one message will be displayed
+	    * at a time and this depends on the prioritization of the messages within the template. (This can
+	    * be changed by using the `ng-messages-multiple` or `multiple` attribute on the directive container.)
+	    *
+	    * A remote template can also be used to promote message reusability and messages can also be
+	    * overridden.
+	    *
+	    * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression" role="alert">
+	    *   <ANY ng-message="stringValue">...</ANY>
+	    *   <ANY ng-message="stringValue1, stringValue2, ...">...</ANY>
+	    *   <ANY ng-message-exp="expressionValue">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression" role="alert">
+	    *   <ng-message when="stringValue">...</ng-message>
+	    *   <ng-message when="stringValue1, stringValue2, ...">...</ng-message>
+	    *   <ng-message when-exp="expressionValue">...</ng-message>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * @param {string} ngMessages an angular expression evaluating to a key/value object
+	    *                 (this is typically the $error object on an ngModel instance).
+	    * @param {string=} ngMessagesMultiple|multiple when set, all messages will be displayed with true
+	    *
+	    * @example
+	    * <example name="ngMessages-directive" module="ngMessagesExample"
+	    *          deps="angular-messages.js"
+	    *          animations="true" fixBase="true">
+	    *   <file name="index.html">
+	    *     <form name="myForm">
+	    *       <label>
+	    *         Enter your name:
+	    *         <input type="text"
+	    *                name="myName"
+	    *                ng-model="name"
+	    *                ng-minlength="5"
+	    *                ng-maxlength="20"
+	    *                required />
+	    *       </label>
+	    *       <pre>myForm.myName.$error = {{ myForm.myName.$error | json }}</pre>
+	    *
+	    *       <div ng-messages="myForm.myName.$error" style="color:maroon" role="alert">
+	    *         <div ng-message="required">You did not enter a field</div>
+	    *         <div ng-message="minlength">Your field is too short</div>
+	    *         <div ng-message="maxlength">Your field is too long</div>
+	    *       </div>
+	    *     </form>
+	    *   </file>
+	    *   <file name="script.js">
+	    *     angular.module('ngMessagesExample', ['ngMessages']);
+	    *   </file>
+	    * </example>
+	    */
+	   .directive('ngMessages', ['$animate', function($animate) {
+	     var ACTIVE_CLASS = 'ng-active';
+	     var INACTIVE_CLASS = 'ng-inactive';
+
+	     return {
+	       require: 'ngMessages',
+	       restrict: 'AE',
+	       controller: ['$element', '$scope', '$attrs', function($element, $scope, $attrs) {
+	         var ctrl = this;
+	         var latestKey = 0;
+	         var nextAttachId = 0;
+
+	         this.getAttachId = function getAttachId() { return nextAttachId++; };
+
+	         var messages = this.messages = {};
+	         var renderLater, cachedCollection;
+
+	         this.render = function(collection) {
+	           collection = collection || {};
+
+	           renderLater = false;
+	           cachedCollection = collection;
+
+	           // this is true if the attribute is empty or if the attribute value is truthy
+	           var multiple = isAttrTruthy($scope, $attrs.ngMessagesMultiple) ||
+	                          isAttrTruthy($scope, $attrs.multiple);
+
+	           var unmatchedMessages = [];
+	           var matchedKeys = {};
+	           var messageItem = ctrl.head;
+	           var messageFound = false;
+	           var totalMessages = 0;
+
+	           // we use != instead of !== to allow for both undefined and null values
+	           while (messageItem != null) {
+	             totalMessages++;
+	             var messageCtrl = messageItem.message;
+
+	             var messageUsed = false;
+	             if (!messageFound) {
+	               forEach(collection, function(value, key) {
+	                 if (!messageUsed && truthy(value) && messageCtrl.test(key)) {
+	                   // this is to prevent the same error name from showing up twice
+	                   if (matchedKeys[key]) return;
+	                   matchedKeys[key] = true;
+
+	                   messageUsed = true;
+	                   messageCtrl.attach();
+	                 }
+	               });
+	             }
+
+	             if (messageUsed) {
+	               // unless we want to display multiple messages then we should
+	               // set a flag here to avoid displaying the next message in the list
+	               messageFound = !multiple;
+	             } else {
+	               unmatchedMessages.push(messageCtrl);
+	             }
+
+	             messageItem = messageItem.next;
+	           }
+
+	           forEach(unmatchedMessages, function(messageCtrl) {
+	             messageCtrl.detach();
+	           });
+
+	           unmatchedMessages.length !== totalMessages
+	              ? $animate.setClass($element, ACTIVE_CLASS, INACTIVE_CLASS)
+	              : $animate.setClass($element, INACTIVE_CLASS, ACTIVE_CLASS);
+	         };
+
+	         $scope.$watchCollection($attrs.ngMessages || $attrs['for'], ctrl.render);
+
+	         this.reRender = function() {
+	           if (!renderLater) {
+	             renderLater = true;
+	             $scope.$evalAsync(function() {
+	               if (renderLater) {
+	                 cachedCollection && ctrl.render(cachedCollection);
+	               }
+	             });
+	           }
+	         };
+
+	         this.register = function(comment, messageCtrl) {
+	           var nextKey = latestKey.toString();
+	           messages[nextKey] = {
+	             message: messageCtrl
+	           };
+	           insertMessageNode($element[0], comment, nextKey);
+	           comment.$$ngMessageNode = nextKey;
+	           latestKey++;
+
+	           ctrl.reRender();
+	         };
+
+	         this.deregister = function(comment) {
+	           var key = comment.$$ngMessageNode;
+	           delete comment.$$ngMessageNode;
+	           removeMessageNode($element[0], comment, key);
+	           delete messages[key];
+	           ctrl.reRender();
+	         };
+
+	         function findPreviousMessage(parent, comment) {
+	           var prevNode = comment;
+	           var parentLookup = [];
+	           while (prevNode && prevNode !== parent) {
+	             var prevKey = prevNode.$$ngMessageNode;
+	             if (prevKey && prevKey.length) {
+	               return messages[prevKey];
+	             }
+
+	             // dive deeper into the DOM and examine its children for any ngMessage
+	             // comments that may be in an element that appears deeper in the list
+	             if (prevNode.childNodes.length && parentLookup.indexOf(prevNode) == -1) {
+	               parentLookup.push(prevNode);
+	               prevNode = prevNode.childNodes[prevNode.childNodes.length - 1];
+	             } else {
+	               prevNode = prevNode.previousSibling || prevNode.parentNode;
+	             }
+	           }
+	         }
+
+	         function insertMessageNode(parent, comment, key) {
+	           var messageNode = messages[key];
+	           if (!ctrl.head) {
+	             ctrl.head = messageNode;
+	           } else {
+	             var match = findPreviousMessage(parent, comment);
+	             if (match) {
+	               messageNode.next = match.next;
+	               match.next = messageNode;
+	             } else {
+	               messageNode.next = ctrl.head;
+	               ctrl.head = messageNode;
+	             }
+	           }
+	         }
+
+	         function removeMessageNode(parent, comment, key) {
+	           var messageNode = messages[key];
+
+	           var match = findPreviousMessage(parent, comment);
+	           if (match) {
+	             match.next = messageNode.next;
+	           } else {
+	             ctrl.head = messageNode.next;
+	           }
+	         }
+	       }]
+	     };
+
+	     function isAttrTruthy(scope, attr) {
+	      return (isString(attr) && attr.length === 0) || //empty attribute
+	             truthy(scope.$eval(attr));
+	     }
+
+	     function truthy(val) {
+	       return isString(val) ? val.length : !!val;
+	     }
+	   }])
+
+	   /**
+	    * @ngdoc directive
+	    * @name ngMessagesInclude
+	    * @restrict AE
+	    * @scope
+	    *
+	    * @description
+	    * `ngMessagesInclude` is a directive with the purpose to import existing ngMessage template
+	    * code from a remote template and place the downloaded template code into the exact spot
+	    * that the ngMessagesInclude directive is placed within the ngMessages container. This allows
+	    * for a series of pre-defined messages to be reused and also allows for the developer to
+	    * determine what messages are overridden due to the placement of the ngMessagesInclude directive.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression" role="alert">
+	    *   <ANY ng-messages-include="remoteTplString">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression" role="alert">
+	    *   <ng-messages-include src="expressionValue1">...</ng-messages-include>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
+	    *
+	    * @param {string} ngMessagesInclude|src a string value corresponding to the remote template.
+	    */
+	   .directive('ngMessagesInclude',
+	     ['$templateRequest', '$document', '$compile', function($templateRequest, $document, $compile) {
+
+	     return {
+	       restrict: 'AE',
+	       require: '^^ngMessages', // we only require this for validation sake
+	       link: function($scope, element, attrs) {
+	         var src = attrs.ngMessagesInclude || attrs.src;
+	         $templateRequest(src).then(function(html) {
+	           $compile(html)($scope, function(contents) {
+	             element.after(contents);
+
+	             // the anchor is placed for debugging purposes
+	             var anchor = jqLite($document[0].createComment(' ngMessagesInclude: ' + src + ' '));
+	             element.after(anchor);
+
+	             // we don't want to pollute the DOM anymore by keeping an empty directive element
+	             element.remove();
+	           });
+	         });
+	       }
+	     };
+	   }])
+
+	   /**
+	    * @ngdoc directive
+	    * @name ngMessage
+	    * @restrict AE
+	    * @scope
+	    *
+	    * @description
+	    * `ngMessage` is a directive with the purpose to show and hide a particular message.
+	    * For `ngMessage` to operate, a parent `ngMessages` directive on a parent DOM element
+	    * must be situated since it determines which messages are visible based on the state
+	    * of the provided key/value map that `ngMessages` listens on.
+	    *
+	    * More information about using `ngMessage` can be found in the
+	    * {@link module:ngMessages `ngMessages` module documentation}.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression" role="alert">
+	    *   <ANY ng-message="stringValue">...</ANY>
+	    *   <ANY ng-message="stringValue1, stringValue2, ...">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression" role="alert">
+	    *   <ng-message when="stringValue">...</ng-message>
+	    *   <ng-message when="stringValue1, stringValue2, ...">...</ng-message>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * @param {expression} ngMessage|when a string value corresponding to the message key.
+	    */
+	  .directive('ngMessage', ngMessageDirectiveFactory())
+
+
+	   /**
+	    * @ngdoc directive
+	    * @name ngMessageExp
+	    * @restrict AE
+	    * @priority 1
+	    * @scope
+	    *
+	    * @description
+	    * `ngMessageExp` is a directive with the purpose to show and hide a particular message.
+	    * For `ngMessageExp` to operate, a parent `ngMessages` directive on a parent DOM element
+	    * must be situated since it determines which messages are visible based on the state
+	    * of the provided key/value map that `ngMessages` listens on.
+	    *
+	    * @usage
+	    * ```html
+	    * <!-- using attribute directives -->
+	    * <ANY ng-messages="expression">
+	    *   <ANY ng-message-exp="expressionValue">...</ANY>
+	    * </ANY>
+	    *
+	    * <!-- or by using element directives -->
+	    * <ng-messages for="expression">
+	    *   <ng-message when-exp="expressionValue">...</ng-message>
+	    * </ng-messages>
+	    * ```
+	    *
+	    * {@link module:ngMessages Click here} to learn more about `ngMessages` and `ngMessage`.
+	    *
+	    * @param {expression} ngMessageExp|whenExp an expression value corresponding to the message key.
+	    */
+	  .directive('ngMessageExp', ngMessageDirectiveFactory());
+
+	function ngMessageDirectiveFactory() {
+	  return ['$animate', function($animate) {
+	    return {
+	      restrict: 'AE',
+	      transclude: 'element',
+	      priority: 1, // must run before ngBind, otherwise the text is set on the comment
+	      terminal: true,
+	      require: '^^ngMessages',
+	      link: function(scope, element, attrs, ngMessagesCtrl, $transclude) {
+	        var commentNode = element[0];
+
+	        var records;
+	        var staticExp = attrs.ngMessage || attrs.when;
+	        var dynamicExp = attrs.ngMessageExp || attrs.whenExp;
+	        var assignRecords = function(items) {
+	          records = items
+	              ? (isArray(items)
+	                    ? items
+	                    : items.split(/[\s,]+/))
+	              : null;
+	          ngMessagesCtrl.reRender();
+	        };
+
+	        if (dynamicExp) {
+	          assignRecords(scope.$eval(dynamicExp));
+	          scope.$watchCollection(dynamicExp, assignRecords);
+	        } else {
+	          assignRecords(staticExp);
+	        }
+
+	        var currentElement, messageCtrl;
+	        ngMessagesCtrl.register(commentNode, messageCtrl = {
+	          test: function(name) {
+	            return contains(records, name);
+	          },
+	          attach: function() {
+	            if (!currentElement) {
+	              $transclude(scope, function(elm) {
+	                $animate.enter(elm, null, element);
+	                currentElement = elm;
+
+	                // Each time we attach this node to a message we get a new id that we can match
+	                // when we are destroying the node later.
+	                var $$attachId = currentElement.$$attachId = ngMessagesCtrl.getAttachId();
+
+	                // in the event that the parent element is destroyed
+	                // by any other structural directive then it's time
+	                // to deregister the message from the controller
+	                currentElement.on('$destroy', function() {
+	                  if (currentElement && currentElement.$$attachId === $$attachId) {
+	                    ngMessagesCtrl.deregister(commentNode);
+	                    messageCtrl.detach();
+	                  }
+	                });
+	              });
+	            }
+	          },
+	          detach: function() {
+	            if (currentElement) {
+	              var elm = currentElement;
+	              currentElement = null;
+	              $animate.leave(elm);
+	            }
+	          }
+	        });
+	      }
+	    };
+	  }];
+
+	  function contains(collection, key) {
+	    if (collection) {
+	      return isArray(collection)
+	          ? collection.indexOf(key) >= 0
+	          : collection.hasOwnProperty(key);
+	    }
+	  }
+	}
+
+
+	})(window, window.angular);
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(11);
+	module.e = 'ngMessages';
+
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/**
@@ -30418,20 +31119,20 @@
 	  };
 	}]);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)(module)))
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(0);
-	__webpack_require__(11);
+	__webpack_require__(13);
 
 	module.e = 'duScroll';
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30527,7 +31228,7 @@
 
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -35071,7 +35772,7 @@
 	})(window, window.angular);
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/**
@@ -65504,7 +66205,113 @@
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 16 */
+/* 18 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.SpeedDialMenuController = SpeedDialMenuController;
+	function SpeedDialMenuController($scope, $timeout, $mdBottomSheet) {
+
+	    // Speed Dial Menu (gt-xs)
+	    $scope.closeMenu = function () {
+	        $scope.controller.isOpen = false;
+	    };
+	    this.isOpen = false;
+	    //availableModes 'md-fling', 'md-scale';
+	    this.selectedMode = 'md-scale';
+	    // availableDirections 'up', 'down', 'left', 'right';
+	    this.selectedDirection = 'left';
+	    this.tipDirection = 'bottom';
+
+	    $scope.$watch('controller.isOpen', function () {
+	        $timeout(function () {
+	            $scope.controller.tooltipsVisible = $scope.controller.isOpen;
+	        }, 500);
+
+	        var button = angular.element(document.querySelector('#resume-button'));
+	        button.toggleClass('md-primary').toggleClass('md-accent');
+	    });
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.speedDialMenu = speedDialMenu;
+
+	var _speedDialMenuController = __webpack_require__(18);
+
+	function speedDialMenu() {
+	    return {
+	        controller: _speedDialMenuController.SpeedDialMenuController,
+	        controllerAs: 'controller',
+	        scope: true,
+	        template: __webpack_require__(35)
+	    };
+	}
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.bottomSheetController = bottomSheetController;
+	function bottomSheetController($scope, $mdBottomSheet, $document) {
+	    $scope.closeMenu = function (idSuffix, $event) {
+	        $mdBottomSheet.hide();
+	    };
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.contactController = contactController;
+	function contactController($scope, $http) {
+	    $scope.submit = function () {
+	        $http({
+	            method: 'POST',
+	            url: '/api/send',
+	            data: $scope.contact,
+	            headers: { 'Content-Type': 'application/json' }
+	        }).success(function (data) {
+	            console.log('success');
+	        }).error(function (data) {
+	            console.log('error');
+	        });
+	    };
+
+	    $scope.reset = function () {
+	        $scope.contact = {
+	            name: "",
+	            email: "",
+	            subject: "",
+	            message: ""
+	        };
+	    };
+	    $scope.reset();
+	}
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65547,7 +66354,7 @@
 	            var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 	            $mdDialog.show({
 	                  controller: 'ResumeDialogController',
-	                  template: __webpack_require__(27),
+	                  template: __webpack_require__(37),
 	                  parent: angular.element(document.body),
 	                  targetEvent: ev,
 	                  clickOutsideToClose: true,
@@ -65689,7 +66496,71 @@
 	};
 
 /***/ },
-/* 17 */
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.mobileController = mobileController;
+	function mobileController($scope, $mdBottomSheet, $document) {
+	    $scope.controller.isOpenBottom = false;
+	    $scope.openBottomMenu = function ($event) {
+	        $event.preventDefault();
+	        $event.stopPropagation();
+	        $mdBottomSheet.show({
+	            template: __webpack_require__(36),
+	            controller: 'BottomSheetController',
+	            disableParentScroll: false
+	        });
+	        $scope.controller.isOpenBottom = false;
+	    };
+	}
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.resumeDialogController = resumeDialogController;
+	function resumeDialogController($scope, $mdDialog) {
+	    $scope.cancel = function () {
+	        $mdDialog.cancel();
+	    };
+
+	    $scope.contents = [{
+	        title: 'Senior Web Developer',
+	        company: 'BBC',
+	        when: '2016 - present',
+	        responsibilities: ['Creating prototype and developing award winning BBC\'s Authentication Tool app.', 'Creating prototype and taking active part in designing responsive version of BBC\'s CMS (iSite2)', 'Developing responsive components and delivering new functionalities for the product (iSite2)', 'Collaborating with other BBC\'s teams to ensure best product functionality and compatibility', 'Advising the Product Manager or Technical Project Manager to ensure that all technical possibilities are explored and that products achieve the best possible look, feel and functionality', 'Evaluating time needed to develop certain features and developing the features in a given timescale', 'Suggesting and using solutions and libraries to shorten development time and/or effort', 'Advise on strategic technology issues', 'Assistance with recruitment', 'Mentoring and coaching of less experienced members of the team', 'Developing new features and products for the organisation', 'Redesigning existing functionality using proven development methodologies, processes and patterns along with the latest technologies', 'Estimating Stories (Agile Scrum) development time, breaking them down into tasks and making sure they are delivered in a given timeframe (Sprint) - panning and prioritizing tasks', 'Resolving accessibility, usability and cross browser issues', 'Working with 3rd party products/libraries', 'Code reviews', 'Pair programming'],
+	        tools: [{
+	            name: 'JavaScript',
+	            tools: 'React.js, Node.js, Backbone.js, Express.js, ES5, ES6'
+	        }, {
+	            name: 'Css',
+	            tools: 'Sass, Bootstrap, Angular-Material'
+	        }, {
+	            name: 'Testing',
+	            tools: 'Behat, PhpUnit, Mocha, Chai, Sinon, Jasmine'
+	        }, {
+	            name: 'Continuous Deployment/Integration',
+	            tools: 'Hudson, Heroku, AWS, Jenkins, AWS CodeDeploy & CodePipeline'
+	        }, {
+	            name: 'Web Dev Tools',
+	            tools: 'Babel, Bower, Grunt, Vagrant, Webpack, Require, Yeoman, Jshint, JsLint, JsBin, Js minifiers and more ...'
+	        }],
+	        toolsIcon: 'developer_mode'
+	    }];
+	}
+
+/***/ },
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65702,35 +66573,49 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _angularUiRouter = __webpack_require__(14);
+	var _angularUiRouter = __webpack_require__(16);
 
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+
+	var _angularMessages = __webpack_require__(12);
+
+	var _angularMessages2 = _interopRequireDefault(_angularMessages);
 
 	var _angularMaterial = __webpack_require__(10);
 
 	var _angularMaterial2 = _interopRequireDefault(_angularMaterial);
 
-	var _mainController = __webpack_require__(16);
+	var _mainController = __webpack_require__(22);
 
 	var _mainController2 = _interopRequireDefault(_mainController);
 
+	var _mobileController = __webpack_require__(23);
+
+	var _resumeDialogController = __webpack_require__(24);
+
+	var _bottomSheetController = __webpack_require__(20);
+
+	var _speedDialMenuDirective = __webpack_require__(19);
+
+	var _contactController = __webpack_require__(21);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var app = _angular2.default.module('app', [_angularUiRouter2.default, _angularMaterial2.default, 'duScroll', 'ngAnimate', 'angular-timeline', 'angular-inview']);
+	var app = _angular2.default.module('app', [_angularUiRouter2.default, _angularMaterial2.default, _angularMessages2.default, 'duScroll', 'ngAnimate', 'angular-timeline', 'angular-inview']);
 
 	app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 	    $urlRouterProvider.otherwise('/');
 	    $stateProvider.state('main', {
 	        url: '/',
-	        template: __webpack_require__(28)
+	        templateUrl: 'views/main.html'
 	    });
 	    $locationProvider.html5Mode(true);
-	}).controller('MainCtrl', _mainController2.default);
+	}).controller('MainCtrl', _mainController2.default).controller('BottomSheetController', _bottomSheetController.bottomSheetController).controller('MobileController', _mobileController.mobileController).controller('ResumeDialogController', _resumeDialogController.resumeDialogController).controller('ContactController', _contactController.contactController).directive('speedDialMenu', _speedDialMenuDirective.speedDialMenu);
 
 	exports.default = app;
 
 /***/ },
-/* 18 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.e = __webpack_require__(1)();
@@ -65744,7 +66629,7 @@
 
 
 /***/ },
-/* 19 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.e = __webpack_require__(1)();
@@ -65758,12 +66643,12 @@
 
 
 /***/ },
-/* 20 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.e = __webpack_require__(1)();
 	// imports
-	exports.i(__webpack_require__(22), "");
+	exports.i(__webpack_require__(30), "");
 
 	// module
 	exports.push([module.i, "#resume-container {\n  max-width: 80%;\n  width: 80%;\n}\n\n#resume-container md-content {\n  overflow-x: hidden;\n}\n\nmd-bottom-sheet {\n  position: fixed !important;\n}\n\nmd-bottom-sheet md-list-item a {\n  padding-bottom: 10px !important;\n  padding-top: 10px !important;\n  min-width: 100px !important;\n}\n\n.active {\n  background-color: #ff4081 !important;\n}\n\n.active md-icon {\n  color: white !important;\n}\n\n.active span {\n  color: white !important;\n}\n\nmd-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 0, 0, 0.26);\n}\n\n.active.button-medium md-icon {\n  color: white !important;\n}\n\n.button-medium {\n  width: 50px !important;\n  height: 50px !important;\n  line-height: 50px !important;\n}\n\n.md-scale:not(.md-is-open) .md-fab-action-item {\n  opacity: 0;\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n}\n\n#current-role md-input-container .md-input[disabled] {\n  color: rgba(0, 0, 0, 0.85);\n}\n\nmd-input-container.md-input-invalid > md-icon.person {\n  color: red;\n}\n\n#background-gradient {\n  background: #3F51B5;\n  /* For browsers that do not support gradients */\n  /* For Safari 5.1 to 6.0 */\n  /* For Opera 11.1 to 12.0 */\n  /* For Firefox 3.6 to 15 */\n  background: linear-gradient(to right, #3F51B5, #7986CB);\n  /* Standard syntax */\n}\n\nsection img {\n  margin: 0 auto;\n}\n\n.section-full-screen {\n  height: 100vh;\n  overflow-x: hidden;\n  margin: 0 auto;\n}\n\n.section-full-screen .inner {\n  display: inline-block;\n  position: relative;\n  right: -50%;\n}\n\n.section-full-screen .inner img {\n  height: 100vh;\n  position: relative;\n  left: -50%;\n}\n\n@media (min-width: 600px) {\n  #speed-dial-desktop {\n    top: 26px;\n  }\n  #resume-button {\n    right: 80px;\n  }\n}\n\n@media (min-width: 742px) {\n  #speed-dial-desktop {\n    top: 20px;\n  }\n}\n\n@media (min-width: 960px) {\n  #speed-dial-desktop {\n    top: 36px;\n  }\n}\n", ""]);
@@ -65772,7 +66657,7 @@
 
 
 /***/ },
-/* 21 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.e = __webpack_require__(1)();
@@ -65780,13 +66665,13 @@
 
 
 	// module
-	exports.push([module.i, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(23) + "); /* For IE6-8 */\n  src: local('Material Icons'),\n       local('MaterialIcons-Regular'),\n       url(" + __webpack_require__(26) + ") format('woff2'),\n       url(" + __webpack_require__(25) + ") format('woff'),\n       url(" + __webpack_require__(24) + ") format('truetype');\n}\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;  /* Preferred icon size */\n  display: inline-block;\n  width: 1em;\n  height: 1em;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n\n  /* Support for all WebKit browsers. */\n  -webkit-font-smoothing: antialiased;\n  /* Support for Safari and Chrome. */\n  text-rendering: optimizeLegibility;\n\n  /* Support for Firefox. */\n  -moz-osx-font-smoothing: grayscale;\n\n  /* Support for IE. */\n  font-feature-settings: 'liga';\n}\n", ""]);
+	exports.push([module.i, "@font-face {\n  font-family: 'Material Icons';\n  font-style: normal;\n  font-weight: 400;\n  src: url(" + __webpack_require__(31) + "); /* For IE6-8 */\n  src: local('Material Icons'),\n       local('MaterialIcons-Regular'),\n       url(" + __webpack_require__(34) + ") format('woff2'),\n       url(" + __webpack_require__(33) + ") format('woff'),\n       url(" + __webpack_require__(32) + ") format('truetype');\n}\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;  /* Preferred icon size */\n  display: inline-block;\n  width: 1em;\n  height: 1em;\n  line-height: 1;\n  text-transform: none;\n  letter-spacing: normal;\n  word-wrap: normal;\n  white-space: nowrap;\n  direction: ltr;\n\n  /* Support for all WebKit browsers. */\n  -webkit-font-smoothing: antialiased;\n  /* Support for Safari and Chrome. */\n  text-rendering: optimizeLegibility;\n\n  /* Support for Firefox. */\n  -moz-osx-font-smoothing: grayscale;\n\n  /* Support for IE. */\n  font-feature-settings: 'liga';\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 22 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.e = __webpack_require__(1)();
@@ -65800,49 +66685,55 @@
 
 
 /***/ },
-/* 23 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.eot?e79bfd88537def476913f3ed52f4f4b3";
 
 /***/ },
-/* 24 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.ttf?a37b0c01c0baf1888ca812cc0508f6e2";
 
 /***/ },
-/* 25 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.woff?3c3d0242794b4682460a3f7c7a2126ee";
 
 /***/ },
-/* 26 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__.p + "res/MaterialIcons-Regular.woff2?c58629e330eaf128316a142320407d74";
 
 /***/ },
-/* 27 */
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = "<md-fab-speed-dial id=\"speed-dial-desktop\" hide-xs md-open=\"controller.isOpen\" md-direction=\"{{controller.selectedDirection}}\" class=\"md-fab-top-right\" ng-class=\"controller.selectedMode\" ng-cloak>\n    <md-fab-trigger>\n        <md-button aria-label=\"Navigation\" class=\"md-fab md-accent\">\n            <md-icon aria-label=\"Navigation\" class=\"material-icons\" ng-style=\"{'font-size': 24 + 'px'}\">menu</md-icon>\n            <md-tooltip md-direction=\"top\">Navigation</md-tooltip>\n        </md-button>\n    </md-fab-trigger>\n    <md-fab-actions du-spy-context>\n        <md-button aria-label=\"About\" class=\"md-fab md-raised button-medium\" href=\"#section-main\" du-smooth-scroll du-scrollspy offseet=\"70\" ng-click='closeMenu()'>\n            <md-tooltip md-direction=\"controller.tipDirection\" md-visible=\"controller.tooltipsVisible\">About</md-tooltip>\n            <md-icon class=\"material-icons\" ng-style=\"{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}\" aria-label=\"About\">account_circle</md-icon>\n        </md-button>\n        <md-button aria-label=\"Experience\" class=\"md-fab md-raised button-medium\" href=\"#section-2\" du-smooth-scroll du-scrollspy offset=\"70\" ng-click='closeMenu()'>\n            <md-tooltip md-direction=\"top\" md-visible=\"controller.tooltipsVisible\">Experience</md-tooltip>\n            <md-icon class=\"material-icons\" ng-style=\"{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}\" aria-label=\"Experience\">lightbulb_outline</md-icon>\n        </md-button>\n        <md-button aria-label=\"My Tags\" class=\"md-fab md-raised button-medium\" href=\"#section-3\" du-smooth-scroll du-scrollspy offset=\"70\" ng-click='closeMenu()'>\n            <md-tooltip md-direction=\"controller.tipDirection\" md-visible=\"controller.tooltipsVisible\">My Tags</md-tooltip>\n            <md-icon class=\"material-icons\" ng-style=\"{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}\" aria-label=\"My Tags\">style</md-icon>\n        </md-button>\n        <md-button aria-label=\"Contact\" class=\"md-fab md-raised button-medium\" href=\"#section-4\" du-smooth-scroll du-scrollspy offset=\"70\" ng-click='closeMenu()'>\n            <md-tooltip md-direction=\"top\" md-visible=\"controller.tooltipsVisible\">Contact</md-tooltip>\n            <md-icon class=\"material-icons\" ng-style=\"{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}\" aria-label=\"Contact\">contact_mail</md-icon>\n        </md-button>\n    </md-fab-actions>\n</md-fab-speed-dial>\n\n<div ng-controller=\"MobileController\">\n    <md-fab-speed-dial  hide-gt-xs ng-click=\"openBottomMenu($event)\" >\n        <md-fab-trigger>\n            <md-button aria-label=\"menu\" class=\"md-fab md-accent\">\n                <md-icon aria-label=\"Menu\" class=\"material-icons\">menu</md-icon>\n            </md-button>\n        </md-fab-trigger>\n    </md-fab-speed-dial>\n</div>\n"
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = "<md-bottom-sheet class=\"md-grid\" layout=\"column\" ng-cloak>\n    <div layout=\"row\" layout-align=\"center center\">\n        <h4>Get to know me better</h4>\n    </div>\n    <md-list flex layout=\"row\" layout-align=\"center center\" du-spy-context>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-main\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\">account_circle</md-icon>\n                <span class=\"md-inline-list-icon-label\">About</span>\n            </md-button>\n        </md-list-item>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-2\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\" >lightbulb_outline</md-icon>\n                <span class=\"md-inline-list-icon-label\">Experience</span>\n            </md-button>\n        </md-list-item>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-3\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\" >style</md-icon>\n                <span class=\"md-inline-list-icon-label\">My Tags</span>\n            </md-button>\n        </md-list-item>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-4\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\" >contact_mail</md-icon>\n                <span class=\"md-inline-list-icon-label\">Contact</span>\n            </md-button>\n        </md-list-item>\n    </md-list>\n</md-bottom-sheet>\n"
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = "<md-dialog>\n    <md-toolbar>\n      <div class=\"md-toolbar-tools\">\n        <div>{{contents[0].title}}</div>\n        <span flex></span>\n        <div ng-style=\"{'color': 'rgba(0,0,0,0.54)'}\"><span>{{ contents[0].company +' '+contents[0].when }}</span></div>\n        <span flex></span>\n        <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n          <md-icon class=\"material-icons\" aria-label=\"Close dialog\">close</md-icon>\n        </md-button>\n      </div>\n    </md-toolbar>\n    <md-dialog-content layout-padding>\n        <div ng-repeat=\"content in contents\">\n            <p>Responsibilities:</p>\n            <div ng-repeat=\"responsibility in content.responsibilities\">\n                <md-checkbox ng-disabled=\"true\" class=\"red\" ng-model=\"checked\" ng-init=\"checked=true\">\n                    {{responsibility}}\n                </md-checkbox>\n            </div>\n            <md-divider></md-divider>\n            <md-list layout=\"column\" layout-xs=\"row\" layout-align=\"center start\">\n              <md-list-item class=\"md-1-line\">\n                <md-icon class=\"material-icons\" ng-style=\"{'font-size': 30 + 'px', height: 30 + 'px'}\">{{content.toolsIcon}}</md-icon>\n                <div class=\"md-list-item-text\">\n                    <div ng-repeat=\"tool in content.tools\" layout=\"column\">\n                        <md-list>\n                            <md-list-item class=\"md-2-line\">\n                                <div class=\"md-list-item-text\">\n                                  <h3>{{tool.name}}</h3>\n                                  <p>{{tool.tools}}</p>\n                                  <md-divider></md-divider>\n                                </div>\n                            </md-list-item>\n                        </md-list>\n                    </div>\n                </div>\n              </md-list-item>\n            </md-list>\n        </div>\n    </md-dialog-content>\n    <md-dialog-actions layout=\"row\">\n      <span flex></span>\n      <md-button ng-click=\"cancel()\" style=\"margin-right:20px;\">\n        Close\n      </md-button>\n    </md-dialog-actions>\n</md-dialog>\n"
 
 /***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.e = "<md-content layout-padding>\n    <div>Main View yay!</div>\n</md-content>\n"
-
-/***/ },
-/* 29 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(18);
+	var content = __webpack_require__(26);
 	if(typeof content === 'string') content = [[module.i, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -65862,13 +66753,13 @@
 	}
 
 /***/ },
-/* 30 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(19);
+	var content = __webpack_require__(27);
 	if(typeof content === 'string') content = [[module.i, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -65888,13 +66779,13 @@
 	}
 
 /***/ },
-/* 31 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(20);
+	var content = __webpack_require__(28);
 	if(typeof content === 'string') content = [[module.i, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -65914,13 +66805,13 @@
 	}
 
 /***/ },
-/* 32 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(21);
+	var content = __webpack_require__(29);
 	if(typeof content === 'string') content = [[module.i, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(2)(content, {});
@@ -65940,7 +66831,7 @@
 	}
 
 /***/ },
-/* 33 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = function(module) {
@@ -65972,7 +66863,7 @@
 
 
 /***/ },
-/* 34 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__(4);

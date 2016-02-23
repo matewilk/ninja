@@ -1,0 +1,47 @@
+<div ng-controller="ContactController" layout="column" layout-padding ng-cloak>
+    <form name="contactForm" class="container-fluid" ng-submit="submit()">
+      <md-content>
+        <md-input-container class="md-icon-float md-block">
+            <label>Name</label>
+            <md-icon aria-label="Name" class="material-icons name">person</md-icon>
+            <input name="name" id="name" ng-model="contact.name" ng-required="true">
+            <div ng-messages="contactForm.name.$error">
+                <div ng-message="required">Your name is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+            <label>Email</label>
+            <md-icon aria-label="Email" class="material-icons email">email</md-icon>
+            <input name="email" id="email" ng-model="contact.email" type="email" ng-required="true" ng-minlength="5" ng-maxlength="30">
+            <div ng-messages="contactForm.email.$error">
+                 <div ng-message="required">You forgot to enter your email address.</div>
+                 <div ng-message="minlength">Your email address is too short.</div>
+                 <div ng-message="maxlength">Your email address is too long.</div>
+                 <div ng-message="email">You did not enter your email address correctly.</div>
+            </div>
+
+        </md-input-container>
+        <md-input-container md-no-float class="md-block">
+            <label>Subject</label>
+            <md-icon aria-label="Subject" class="material-icons">subject</md-icon>
+            <input name="subject" id="subject" ng-model="contact.subject" ng-required="true">
+            <div ng-messages="contactForm.subject.$error">
+                <div ng-message="required">Message subject is required.</div>
+            </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Message</label>
+            <md-icon aria-label="Message" class="material-icons">message</md-icon>
+            <textarea name="message" id="message" ng-model="contact.message" ng-required="true" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+            <div ng-messages="contactForm.message.$error">
+                <div ng-message="required">Message is required.</div>
+            </div>
+        </md-input-container>
+        <div layout="row">
+            <span flex> </span>
+            <md-button type="button" ng-click="reset(contactForm)">RESET</md-button>
+            <md-button type="submit" class="md-primary" ng-disabled="contactForm.$invalid">SUBMIT</md-button>
+        </div>
+      </md-content>
+    <form>
+</div>

@@ -1,0 +1,36 @@
+<md-fab-speed-dial id="speed-dial-desktop" hide-xs md-open="controller.isOpen" md-direction="{{controller.selectedDirection}}" class="md-fab-top-right" ng-class="controller.selectedMode" ng-cloak>
+    <md-fab-trigger>
+        <md-button aria-label="Navigation" class="md-fab md-accent">
+            <md-icon aria-label="Navigation" class="material-icons" ng-style="{'font-size': 24 + 'px'}">menu</md-icon>
+            <md-tooltip md-direction="top">Navigation</md-tooltip>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions du-spy-context>
+        <md-button aria-label="About" class="md-fab md-raised button-medium" href="#section-main" du-smooth-scroll du-scrollspy offseet="70" ng-click='closeMenu()'>
+            <md-tooltip md-direction="controller.tipDirection" md-visible="controller.tooltipsVisible">About</md-tooltip>
+            <md-icon class="material-icons" ng-style="{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}" aria-label="About">account_circle</md-icon>
+        </md-button>
+        <md-button aria-label="Experience" class="md-fab md-raised button-medium" href="#section-2" du-smooth-scroll du-scrollspy offset="70" ng-click='closeMenu()'>
+            <md-tooltip md-direction="top" md-visible="controller.tooltipsVisible">Experience</md-tooltip>
+            <md-icon class="material-icons" ng-style="{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}" aria-label="Experience">lightbulb_outline</md-icon>
+        </md-button>
+        <md-button aria-label="My Tags" class="md-fab md-raised button-medium" href="#section-3" du-smooth-scroll du-scrollspy offset="70" ng-click='closeMenu()'>
+            <md-tooltip md-direction="controller.tipDirection" md-visible="controller.tooltipsVisible">My Tags</md-tooltip>
+            <md-icon class="material-icons" ng-style="{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}" aria-label="My Tags">style</md-icon>
+        </md-button>
+        <md-button aria-label="Contact" class="md-fab md-raised button-medium" href="#section-4" du-smooth-scroll du-scrollspy offset="70" ng-click='closeMenu()'>
+            <md-tooltip md-direction="top" md-visible="controller.tooltipsVisible">Contact</md-tooltip>
+            <md-icon class="material-icons" ng-style="{'font-size': 36 + 'px', height: 38 + 'px', 'color': 'rgba(0,0,0,0.54)'}" aria-label="Contact">contact_mail</md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>
+
+<div ng-controller="MobileController">
+    <md-fab-speed-dial  hide-gt-xs ng-click="openBottomMenu($event)" >
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-accent">
+                <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
+</div>
