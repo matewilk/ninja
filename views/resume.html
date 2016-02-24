@@ -30,10 +30,17 @@
             </div>
             <div ng-if="event.long == true">
                 <div layout="column" layout-align="center center">
-                    <p>This one is quite descriptive, please </p>
-                    <md-button class="md-primary md-raised" ng-click="showAdvanced($event)">
-                      See here
-                    </md-button>
+                    <div ng-repeat="content in event.content|limitTo:3">
+                        <md-checkbox ng-disabled="true" class="red" ng-model="checked" ng-init="checked=true">
+                            {{content}}
+                        </md-checkbox>
+                    </div>
+                    <div>
+                        <md-divider></md-divider>
+                        <md-button class="md-primary md-raised" ng-click="showAdvanced($event)">
+                          See more
+                        </md-button>
+                    <div>
                 </div>
             </div>
 

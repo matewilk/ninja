@@ -2,6 +2,13 @@
   max-width: 80%;
   width: 80%;
 
+  @media (max-width: 742px) {
+      & {
+          max-width: 100%;
+          width: 100%;
+      }
+  }
+
   //prevent from showing scrollbar on animation
   md-content {
     overflow-x: hidden
@@ -10,14 +17,6 @@
 
 md-bottom-sheet {
     position: fixed !important;
-
-    md-list-item {
-        a {
-            padding-bottom: 10px !important;
-            padding-top: 10px !important;
-            min-width: 100px !important;
-        }
-    }
 }
 
 .active {
@@ -25,7 +24,7 @@ md-bottom-sheet {
     md-icon {
         color: white !important;
     }
-    span {
+    span, div {
         color: white !important;
     }
 }
