@@ -2,7 +2,9 @@
 export function bottomSheetController($scope, $mdBottomSheet, $document)
 {
     $scope.closeMenu = function(idSuffix, $event){
-        $mdBottomSheet.hide();
+        setTimeout(function(){
+            $mdBottomSheet.hide();
+        }, 300);
     }
 
     $scope.items = [

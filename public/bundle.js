@@ -66271,7 +66271,9 @@
 	exports.bottomSheetController = bottomSheetController;
 	function bottomSheetController($scope, $mdBottomSheet, $document) {
 	    $scope.closeMenu = function (idSuffix, $event) {
-	        $mdBottomSheet.hide();
+	        setTimeout(function () {
+	            $mdBottomSheet.hide();
+	        }, 300);
 	    };
 
 	    $scope.items = [{
@@ -66736,7 +66738,7 @@
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.e = "<md-bottom-sheet class=\"md-grid\" layout=\"column\" ng-cloak du-spy-context>\n    <div layout=\"row\" layout-align=\"center center\">\n        <h4>Get to know me better</h4>\n    </div>\n    <div flex layout=\"row\" layout-align=\"center center\" >\n        <div ng-repeat=\"item in items|limitTo:2\">\n            <md-button ng-style=\"{'min-width':'105px'}\" du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-grid-item-content\" href=\"{{item.href}}\" ng-click=\"closeMenu()\">\n                 <md-icon class=\"material-icons\">{{item.icon}}</md-icon>\n                 <div class=\"md-grid-text\">{{item.label}}</div>\n            </md-button>\n        </div>\n    </div>\n    <div flex layout=\"row\" layout-align=\"center center\">\n        <div ng-repeat=\"item in items\" ng-if=\"$index >= 2\">\n            <md-button ng-style=\"{'min-width':'105px'}\" du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-grid-item-content\" href=\"{{item.href}}\" ng-click=\"closeMenu()\">\n                 <md-icon class=\"material-icons\">{{item.icon}}</md-icon>\n                 <div class=\"md-grid-text\">{{item.label}}</div>\n            </md-button>\n        </div>\n    </div>\n</md-bottom-sheet>\n"
+	module.e = "<md-bottom-sheet class=\"md-grid\" layout=\"column\" ng-cloak du-spy-context>\n    <div layout=\"row\" layout-align=\"center center\">\n        <h4>Get to know me better</h4>\n    </div>\n    <div flex layout=\"row\" layout-align=\"center center\" >\n        <div ng-repeat=\"item in items|limitTo:2\">\n            <md-button ng-style=\"{'min-width':'105px'}\" du-smooth-scroll du-scrollspy offseet=\"200\" class=\"md-grid-item-content\" href=\"{{item.href}}\" ng-click=\"closeMenu()\">\n                 <md-icon class=\"material-icons\">{{item.icon}}</md-icon>\n                 <div class=\"md-grid-text\">{{item.label}}</div>\n            </md-button>\n        </div>\n    </div>\n    <div flex layout=\"row\" layout-align=\"center center\">\n        <div ng-repeat=\"item in items\" ng-if=\"$index >= 2\">\n            <md-button ng-style=\"{'min-width':'105px'}\" du-smooth-scroll du-scrollspy offseet=\"200\" class=\"md-grid-item-content\" href=\"{{item.href}}\" ng-click=\"closeMenu()\">\n                 <md-icon class=\"material-icons\">{{item.icon}}</md-icon>\n                 <div class=\"md-grid-text\">{{item.label}}</div>\n            </md-button>\n        </div>\n    </div>\n</md-bottom-sheet>\n"
 
 /***/ },
 /* 37 */
