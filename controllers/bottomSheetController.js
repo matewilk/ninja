@@ -20,13 +20,12 @@ export function bottomSheetController($scope, $mdBottomSheet, $document)
             icon: 'style',
             label: 'My Tags',
             href: '#section-3'
-        }
-        /* this item is in the template (fexbox issues)
+        },
         {
             icon: 'contact_mail',
             label: 'Contact',
             href: '#section-4'
         }
-        */
+
     ]
 }

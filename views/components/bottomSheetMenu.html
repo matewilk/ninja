@@ -3,18 +3,18 @@
         <h4>Get to know me better</h4>
     </div>
     <div flex layout="row" layout-align="center center" >
-        <div ng-repeat="item in items">
-            <md-button du-smooth-scroll du-scrollspy offseet="70" class="md-grid-item-content" href="{{item.href}}" ng-click="closeMenu()">
+        <div ng-repeat="item in items|limitTo:2">
+            <md-button ng-style="{'min-width':'105px'}" du-smooth-scroll du-scrollspy offseet="70" class="md-grid-item-content" href="{{item.href}}" ng-click="closeMenu()">
                  <md-icon class="material-icons">{{item.icon}}</md-icon>
-                 <div class="md-grid-text"> {{ item.label }} </div>
+                 <div class="md-grid-text">{{item.label}}</div>
             </md-button>
         </div>
     </div>
-    <div layout="row" layout-align="center center">
-        <div>
-            <md-button du-smooth-scroll du-scrollspy offseet="70" class="md-grid-item-content" href="#section-4" ng-click="closeMenu()">
-                 <md-icon class="material-icons">contact_mail</md-icon>
-                 <div class="md-grid-text">Contact</div>
+    <div flex layout="row" layout-align="center center">
+        <div ng-repeat="item in items" ng-if="$index >= 2">
+            <md-button ng-style="{'min-width':'105px'}" du-smooth-scroll du-scrollspy offseet="70" class="md-grid-item-content" href="{{item.href}}" ng-click="closeMenu()">
+                 <md-icon class="material-icons">{{item.icon}}</md-icon>
+                 <div class="md-grid-text">{{item.label}}</div>
             </md-button>
         </div>
     </div>

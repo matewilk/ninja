@@ -2,7 +2,19 @@
   max-width: 80%;
   width: 80%;
 
-  @media (max-width: 742px) {
+  @media screen and (max-width: 742px) {
+      & {
+          max-width: 100%;
+          width: 100%;
+      }
+  }
+  @media only screen and (max-device-width: 742px) {
+      & {
+          max-width: 100%;
+          width: 100%;
+      }
+  }
+  @media screen and (device-width: 742px) {
       & {
           max-width: 100%;
           width: 100%;
