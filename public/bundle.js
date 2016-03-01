@@ -66273,6 +66273,24 @@
 	    $scope.closeMenu = function (idSuffix, $event) {
 	        $mdBottomSheet.hide();
 	    };
+
+	    $scope.items = [{
+	        icon: 'account_circle',
+	        label: 'About',
+	        href: '#section-main'
+	    }, {
+	        icon: 'lightbulb_outline',
+	        label: 'Experience',
+	        href: '#section-2'
+	    }, {
+	        icon: 'style',
+	        label: 'My Tags',
+	        href: '#section-3'
+	    }, {
+	        icon: 'contact_mail',
+	        label: 'Contact',
+	        href: '#section-4'
+	    }];
 	}
 
 /***/ },
@@ -66651,7 +66669,7 @@
 	exports.i(__webpack_require__(30), "");
 
 	// module
-	exports.push([module.i, "#resume-container {\n  max-width: 80%;\n  width: 80%;\n}\n\n#resume-container md-content {\n  overflow-x: hidden;\n}\n\nmd-bottom-sheet {\n  position: fixed !important;\n}\n\nmd-bottom-sheet md-list-item a {\n  padding-bottom: 10px !important;\n  padding-top: 10px !important;\n  min-width: 100px !important;\n}\n\n.active {\n  background-color: #ff4081 !important;\n}\n\n.active md-icon {\n  color: white !important;\n}\n\n.active span {\n  color: white !important;\n}\n\nmd-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 0, 0, 0.26);\n}\n\n.active.button-medium md-icon {\n  color: white !important;\n}\n\n.button-medium {\n  width: 50px !important;\n  height: 50px !important;\n  line-height: 50px !important;\n}\n\n.md-scale:not(.md-is-open) .md-fab-action-item {\n  opacity: 0;\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n}\n\n#current-role md-input-container .md-input[disabled] {\n  color: rgba(0, 0, 0, 0.85);\n}\n\nmd-input-container.md-input-invalid > md-icon.person {\n  color: red;\n}\n\n#background-gradient {\n  background: #3F51B5;\n  /* For browsers that do not support gradients */\n  /* For Safari 5.1 to 6.0 */\n  /* For Opera 11.1 to 12.0 */\n  /* For Firefox 3.6 to 15 */\n  background: linear-gradient(to right, #3F51B5, #7986CB);\n  /* Standard syntax */\n}\n\nsection img {\n  margin: 0 auto;\n}\n\n.section-full-screen {\n  height: 100vh;\n  overflow-x: hidden;\n  margin: 0 auto;\n}\n\n.section-full-screen .inner {\n  display: inline-block;\n  position: relative;\n  right: -50%;\n}\n\n.section-full-screen .inner img {\n  height: 100vh;\n  position: relative;\n  left: -50%;\n}\n\n@media (min-width: 600px) {\n  #speed-dial-desktop {\n    top: 26px;\n  }\n  #resume-button {\n    right: 80px;\n  }\n}\n\n@media (min-width: 742px) {\n  #speed-dial-desktop {\n    top: 20px;\n  }\n}\n\n@media (min-width: 960px) {\n  #speed-dial-desktop {\n    top: 36px;\n  }\n}\n", ""]);
+	exports.push([module.i, "#resume-container {\n  max-width: 80%;\n  width: 80%;\n}\n\n@media screen and (max-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media only screen and (max-device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media screen and (device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n#resume-container md-content {\n  overflow-x: hidden;\n}\n\nmd-bottom-sheet {\n  position: fixed !important;\n}\n\n.active {\n  background-color: #ff4081 !important;\n}\n\n.active md-icon {\n  color: white !important;\n}\n\n.active span, .active div {\n  color: white !important;\n}\n\nmd-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 0, 0, 0.26);\n}\n\n.active.button-medium md-icon {\n  color: white !important;\n}\n\n.button-medium {\n  width: 50px !important;\n  height: 50px !important;\n  line-height: 50px !important;\n}\n\n.md-scale:not(.md-is-open) .md-fab-action-item {\n  opacity: 0;\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n}\n\n#current-role md-input-container .md-input[disabled] {\n  color: rgba(0, 0, 0, 0.85);\n}\n\nmd-input-container.md-input-invalid > md-icon.person {\n  color: red;\n}\n\n#background-gradient {\n  background: #3F51B5;\n  /* For browsers that do not support gradients */\n  /* For Safari 5.1 to 6.0 */\n  /* For Opera 11.1 to 12.0 */\n  /* For Firefox 3.6 to 15 */\n  background: linear-gradient(to right, #3F51B5, #7986CB);\n  /* Standard syntax */\n}\n\nsection img {\n  margin: 0 auto;\n}\n\n.section-full-screen {\n  height: 100vh;\n  overflow-x: hidden;\n  margin: 0 auto;\n}\n\n.section-full-screen .inner {\n  display: inline-block;\n  position: relative;\n  right: -50%;\n}\n\n.section-full-screen .inner img {\n  height: 100vh;\n  position: relative;\n  left: -50%;\n}\n\n@media (min-width: 600px) {\n  #speed-dial-desktop {\n    top: 26px;\n  }\n  #resume-button {\n    right: 80px;\n  }\n}\n\n@media (min-width: 742px) {\n  #speed-dial-desktop {\n    top: 20px;\n  }\n}\n\n@media (min-width: 960px) {\n  #speed-dial-desktop {\n    top: 36px;\n  }\n}\n", ""]);
 
 	// exports
 
@@ -66718,7 +66736,7 @@
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.e = "<md-bottom-sheet class=\"md-grid\" layout=\"column\" ng-cloak>\n    <div layout=\"row\" layout-align=\"center center\">\n        <h4>Get to know me better</h4>\n    </div>\n    <md-list flex layout=\"row\" layout-align=\"center center\" du-spy-context>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-main\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\">account_circle</md-icon>\n                <span class=\"md-inline-list-icon-label\">About</span>\n            </md-button>\n        </md-list-item>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-2\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\" >lightbulb_outline</md-icon>\n                <span class=\"md-inline-list-icon-label\">Experience</span>\n            </md-button>\n        </md-list-item>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-3\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\" >style</md-icon>\n                <span class=\"md-inline-list-icon-label\">My Tags</span>\n            </md-button>\n        </md-list-item>\n        <md-list-item>\n            <md-button du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-list-item-content\" href=\"#section-4\" ng-click=\"closeMenu()\">\n                <md-icon class=\"material-icons\" >contact_mail</md-icon>\n                <span class=\"md-inline-list-icon-label\">Contact</span>\n            </md-button>\n        </md-list-item>\n    </md-list>\n</md-bottom-sheet>\n"
+	module.e = "<md-bottom-sheet class=\"md-grid\" layout=\"column\" ng-cloak du-spy-context>\n    <div layout=\"row\" layout-align=\"center center\">\n        <h4>Get to know me better</h4>\n    </div>\n    <div flex layout=\"row\" layout-align=\"center center\" >\n        <div ng-repeat=\"item in items|limitTo:2\">\n            <md-button ng-style=\"{'min-width':'105px'}\" du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-grid-item-content\" href=\"{{item.href}}\" ng-click=\"closeMenu()\">\n                 <md-icon class=\"material-icons\">{{item.icon}}</md-icon>\n                 <div class=\"md-grid-text\">{{item.label}}</div>\n            </md-button>\n        </div>\n    </div>\n    <div flex layout=\"row\" layout-align=\"center center\">\n        <div ng-repeat=\"item in items\" ng-if=\"$index >= 2\">\n            <md-button ng-style=\"{'min-width':'105px'}\" du-smooth-scroll du-scrollspy offseet=\"70\" class=\"md-grid-item-content\" href=\"{{item.href}}\" ng-click=\"closeMenu()\">\n                 <md-icon class=\"material-icons\">{{item.icon}}</md-icon>\n                 <div class=\"md-grid-text\">{{item.label}}</div>\n            </md-button>\n        </div>\n    </div>\n</md-bottom-sheet>\n"
 
 /***/ },
 /* 37 */
