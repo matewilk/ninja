@@ -13,6 +13,21 @@ section img {
   margin: 0 auto;
 }
 
+.transparent-background {
+    background-color: transparent;
+}
+
+.sample-show-hide {
+    -webkit-transition:all linear 1s  !important;
+    transition:all linear 1s !important;
+}
+
+.about-hide {
+    @media (max-width: 600px) {
+        display: none !important;
+    }
+}
+
 //main section with image for landscape images (?)
 .section-full-screen {
   height:100vh;

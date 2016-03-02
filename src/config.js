@@ -8,6 +8,7 @@ import {resumeDialogController} from '../controllers/resumeDialogController';
 import {bottomSheetController} from '../controllers/bottomSheetController';
 import {speedDialMenu} from '../components/speedDialMenu/speedDialMenuDirective';
 import {contactController} from '../controllers/contactController';
+import {aboutController} from '../controllers/aboutController';
 
 const app = angular.module('app', [
     uiRouter,
@@ -33,6 +34,7 @@ app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 .controller('MobileController', mobileController)
 .controller('ResumeDialogController', resumeDialogController)
 .controller('ContactController', contactController)
+.controller('AboutController', aboutController)
 .directive('speedDialMenu', speedDialMenu);
 
 export default app;

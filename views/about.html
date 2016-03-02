@@ -1,6 +1,6 @@
-<div layout="row" layout-sm="column" layout-xs="column">
+<div layout="row" layout-sm="column" layout-xs="column" class="transparent-background">
     <div flex-gt-sm="33" flex-sm="100">
-        <md-content layout-padding>
+        <md-content layout-padding class="transparent-background">
             <!-- midia query here for below div to aligh image left if not sm -->
             <div style="margin: 0 auto; width:150px;">
                 <img ng-src="images/my_face.png" style="border-radius: 50%">
@@ -8,20 +8,25 @@
         </md-content>
     </div>
     <div flex>
-        <md-content layout-padding layout="column" layout-align="center center">
+        <md-content layout-padding layout="column" layout-align="center center" class="transparent-background" style="color: white !important;">
             <div>Hi! I'm Mateusz Wilk a Web Developer</div>
-            <div layout-padding layout="column" layout-align="center center">
-                <div>
-                    I'm a strong advocate of extreme programming and agile methodologies.
-                    I'm a programmer for a while now, and I'm very happy to say that the level I'm on has been eveluated as senior.
+            <div>
+                <div ng-class="{'about-hide': showmore}" class="sample-show-hide" layout-padding layout="column" layout-align="center center">
+                    <div>
+                        I'm a strong advocate of extreme programming and agile methodologies.
+                        I'm a programmer for a while now, and I'm very happy to say that the level I'm on has been eveluated as senior.
+                    </div>
+                    <div>A JavaScript framework is a tool for me, not the holy grail of best practices,
+                        they all solve same issues in different ways! If you ask me which framework to choose or which one is the best,
+                        I'll first ask you what's the problem.
+                    </div>
+                    <div>
+                        Please, be my guest and check out the page, hope you'll find what are you looking for. Enjoy!
+                    </div>
                 </div>
-                <div>A JavaScript framework is a tool for me, not the holy grail of best practices,
-                    they all solve same issues in different ways! If you ask me which framework to choose or which one is the best,
-                    I'll first ask you what's the problem.
-                </div>
-                <div>
-                    Please, be my guest and check out the page, hope you'll find what are you looking for. Enjoy!
-                </div>
+            </div>
+            <div>
+                <md-button hide-gt-xs aria-label="Show detailed description" href="" ng-click="showmore = !showmore">{{showmore == true ? "show more" : "show less"}}</md-button>
             </div>
         </md-content>
     </div>
