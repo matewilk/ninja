@@ -21,6 +21,16 @@
       }
   }
 
+  md-checkbox.md-checked[disabled] {
+      &.red .md-icon {
+          background-color: rgba(255,64,129,0.87);
+      }
+
+      .md-label {
+          color: rgba(0,0,0,0.76);
+      }
+  }
+
   //prevent from showing scrollbar on animation
   md-content {
     overflow-x: hidden

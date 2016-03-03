@@ -43,7 +43,7 @@ export function resumeDialogController($scope, $mdDialog)
             tools: 'Hudson, Heroku, AWS, Jenkins, AWS CodeDeploy & CodePipeline'
         },{
             name: 'Web Dev Tools',
-            tools: 'Babel, Bower, Grunt, Vagrant, Webpack, Require, Yeoman, Jshint, JsLint, JsBin, Js minifiers and more ...'
+            tools: 'Babel, Bower, Grunt, Vagrant, Webpack, Require, Yeoman, Jshint, JsLint, JsBin, Js minifiers and more'
         }],
         toolsIcon: 'developer_mode'
     }]

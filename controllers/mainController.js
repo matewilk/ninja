@@ -39,9 +39,9 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
 	$scope.side = '';
 
 	$scope.events = [{
-		badgeClass: 'warning',
+		badgeClass: 'info',
         side: 'Right',
-		badgeIconClass: 'place',
+		badgeIconClass: 'keyboard',
 		title: 'Senior Web Developer',
         company: 'BBC',
 		when: '2016 - present',
@@ -73,7 +73,7 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
 	},{
 		badgeClass: 'warning',
         side: 'Left',
-		badgeIconClass: 'place',
+		badgeIconClass: 'import_contacts',
 		title: 'Courses',
         company: 'BBC',
 		when: '2014 - 2016',
@@ -90,7 +90,7 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
 	},{
 		badgeClass: 'warning',
         side: 'Right',
-		badgeIconClass: 'place',
+		badgeIconClass: 'border_color',
 		title: 'Independent Coursework and Conferences',
 		when: '2014 - 2015',
 		content: [
@@ -103,9 +103,9 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
             'Front-Trends 2013 & 2014 conference'
         ]
 	},{
-		badgeClass: 'warning',
+		badgeClass: 'info',
         side: 'Left',
-		badgeIconClass: 'place',
+		badgeIconClass: 'keyboard',
 		title: 'Web Developer',
         company: 'BBC',
 		when: '2014 - 2015',
@@ -123,7 +123,7 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
 	},{
 		badgeClass: 'info',
         side: 'Right',
-		badgeIconClass: 'assignment_ind',
+		badgeIconClass: 'turned_in_not',
 		title: 'Software Developer',
         company: 'Arbor Education',
 		when: '2013 - 2014',
@@ -135,9 +135,9 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
         tools: 'Javascript, ExtJs, PHP, Zend Framework',
         toolsIcon: 'mouse'
 	},{
-		badgeClass: 'warning',
+		badgeClass: 'info',
         side: 'Left',
-		badgeIconClass: 'place',
+		badgeIconClass: 'headset_mic',
 		title: 'Web/Javascript Developer',
         company: 'Focus Telecom',
 		when: '2010 - 2013',
@@ -157,7 +157,7 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
 	},{
 		badgeClass: 'info',
         side: 'Right',
-		badgeIconClass: 'assignment_ind',
+		badgeIconClass: 'cast_connected',
 		title: 'Programmer Javascript/PHP/SQL',
         company: 'Expanse',
 		when: '2009 - 2010',
@@ -171,9 +171,9 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
         tools: 'Javascript, ExtJs, Ajax, PHP, Zend Framework, DbDesigner, PostgreSQL',
         toolsIcon: 'keyboard'
 	}, {
-		badgeClass: 'warning',
+		badgeClass: 'info',
         side: 'Left',
-		badgeIconClass: 'place',
+		badgeIconClass: 'videogame_asset',
 		title: 'Freelancer Web enthusiast',
 		when: '2008 - 2009',
 		content: [
@@ -209,7 +209,7 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
         tools: 'Visual Studio .NET, Microsoft Windows Server 2005, Miscrosoft Web Developer',
         toolsIcon: 'developer_board'
 	}, {
-		badgeClass: 'info',
+		badgeClass: 'warning',
         side: 'Right',
 		badgeIconClass: 'public',
 		title: 'IAESTE Scholarship program',

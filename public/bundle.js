@@ -66286,6 +66286,12 @@
 	            css: 80
 	        };
 	    }, true);
+
+	    $scope.about = {
+	        first: 'I\'m a strong advocate of extreme programming and agile methodologies.' + 'I\'m a programmer for a while now, and I\'m very happy to say that the level I\'m on has been eveluated as senior.',
+	        second: 'A JavaScript framework is a tool for me, not the holy grail of best practices,' + 'they all solve same issues in different ways! If you ask me which framework to choose or which one is the best,' + 'I\'ll first ask, what\'s the problem.',
+	        third: 'Please, be my guest and check out the page, hope you\'ll find what are you looking for. Enjoy!'
+	    };
 	}
 
 /***/ },
@@ -66408,9 +66414,9 @@
 	      $scope.side = '';
 
 	      $scope.events = [{
-	            badgeClass: 'warning',
+	            badgeClass: 'info',
 	            side: 'Right',
-	            badgeIconClass: 'place',
+	            badgeIconClass: 'keyboard',
 	            title: 'Senior Web Developer',
 	            company: 'BBC',
 	            when: '2016 - present',
@@ -66421,7 +66427,7 @@
 	      }, {
 	            badgeClass: 'warning',
 	            side: 'Left',
-	            badgeIconClass: 'place',
+	            badgeIconClass: 'import_contacts',
 	            title: 'Courses',
 	            company: 'BBC',
 	            when: '2014 - 2016',
@@ -66429,14 +66435,14 @@
 	      }, {
 	            badgeClass: 'warning',
 	            side: 'Right',
-	            badgeIconClass: 'place',
+	            badgeIconClass: 'border_color',
 	            title: 'Independent Coursework and Conferences',
 	            when: '2014 - 2015',
 	            content: ['AWS:reInvent 2015 conference Las Vegas', 'MongoDB for Node.js Developers', 'Node.js meet-ups', 'React.js meet-ups', 'Backbone.js meet-ups', 'Meet.js meet-ups', 'Front-Trends 2013 & 2014 conference']
 	      }, {
-	            badgeClass: 'warning',
+	            badgeClass: 'info',
 	            side: 'Left',
-	            badgeIconClass: 'place',
+	            badgeIconClass: 'keyboard',
 	            title: 'Web Developer',
 	            company: 'BBC',
 	            when: '2014 - 2015',
@@ -66446,7 +66452,7 @@
 	      }, {
 	            badgeClass: 'info',
 	            side: 'Right',
-	            badgeIconClass: 'assignment_ind',
+	            badgeIconClass: 'turned_in_not',
 	            title: 'Software Developer',
 	            company: 'Arbor Education',
 	            when: '2013 - 2014',
@@ -66454,9 +66460,9 @@
 	            tools: 'Javascript, ExtJs, PHP, Zend Framework',
 	            toolsIcon: 'mouse'
 	      }, {
-	            badgeClass: 'warning',
+	            badgeClass: 'info',
 	            side: 'Left',
-	            badgeIconClass: 'place',
+	            badgeIconClass: 'headset_mic',
 	            title: 'Web/Javascript Developer',
 	            company: 'Focus Telecom',
 	            when: '2010 - 2013',
@@ -66466,7 +66472,7 @@
 	      }, {
 	            badgeClass: 'info',
 	            side: 'Right',
-	            badgeIconClass: 'assignment_ind',
+	            badgeIconClass: 'cast_connected',
 	            title: 'Programmer Javascript/PHP/SQL',
 	            company: 'Expanse',
 	            when: '2009 - 2010',
@@ -66474,9 +66480,9 @@
 	            tools: 'Javascript, ExtJs, Ajax, PHP, Zend Framework, DbDesigner, PostgreSQL',
 	            toolsIcon: 'keyboard'
 	      }, {
-	            badgeClass: 'warning',
+	            badgeClass: 'info',
 	            side: 'Left',
-	            badgeIconClass: 'place',
+	            badgeIconClass: 'videogame_asset',
 	            title: 'Freelancer Web enthusiast',
 	            when: '2008 - 2009',
 	            content: ['Web services functionality development and modification', 'Templates and forms creation', 'Scripting', 'Web pages development', 'Web shops modification'],
@@ -66502,7 +66508,7 @@
 	            tools: 'Visual Studio .NET, Microsoft Windows Server 2005, Miscrosoft Web Developer',
 	            toolsIcon: 'developer_board'
 	      }, {
-	            badgeClass: 'info',
+	            badgeClass: 'warning',
 	            side: 'Right',
 	            badgeIconClass: 'public',
 	            title: 'IAESTE Scholarship program',
@@ -66587,7 +66593,7 @@
 	            tools: 'Hudson, Heroku, AWS, Jenkins, AWS CodeDeploy & CodePipeline'
 	        }, {
 	            name: 'Web Dev Tools',
-	            tools: 'Babel, Bower, Grunt, Vagrant, Webpack, Require, Yeoman, Jshint, JsLint, JsBin, Js minifiers and more ...'
+	            tools: 'Babel, Bower, Grunt, Vagrant, Webpack, Require, Yeoman, Jshint, JsLint, JsBin, Js minifiers and more'
 	        }],
 	        toolsIcon: 'developer_mode'
 	    }];
@@ -66687,7 +66693,7 @@
 	exports.i(__webpack_require__(31), "");
 
 	// module
-	exports.push([module.i, "#resume-container {\n  max-width: 80%;\n  width: 80%;\n}\n\n@media screen and (max-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media only screen and (max-device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media screen and (device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n#resume-container md-content {\n  overflow-x: hidden;\n}\n\nmd-bottom-sheet {\n  position: fixed !important;\n}\n\n.active {\n  background-color: #ff4081 !important;\n}\n\n.active md-icon {\n  color: white !important;\n}\n\n.active span, .active div {\n  color: white !important;\n}\n\nmd-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 0, 0, 0.26);\n}\n\n.active.button-medium md-icon {\n  color: white !important;\n}\n\n.button-medium {\n  width: 50px !important;\n  height: 50px !important;\n  line-height: 50px !important;\n}\n\n.md-scale:not(.md-is-open) .md-fab-action-item {\n  opacity: 0;\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n}\n\n#current-role md-input-container .md-input[disabled] {\n  color: rgba(0, 0, 0, 0.85);\n}\n\nmd-input-container.md-input-invalid > md-icon.person {\n  color: red;\n}\n\n#background-gradient {\n  background: #3F51B5;\n  /* For browsers that do not support gradients */\n  /* For Safari 5.1 to 6.0 */\n  /* For Opera 11.1 to 12.0 */\n  /* For Firefox 3.6 to 15 */\n  background: linear-gradient(to right, #3F51B5, #7986CB);\n  /* Standard syntax */\n}\n\nsection img {\n  margin: 0 auto;\n}\n\n.transparent-background {\n  background-color: transparent;\n}\n\n.sample-show-hide {\n  transition: all linear 1s !important;\n}\n\n@media (max-width: 600px) {\n  .about-hide {\n    display: none !important;\n  }\n}\n\n.section-full-screen {\n  height: 100vh;\n  overflow-x: hidden;\n  margin: 0 auto;\n}\n\n.section-full-screen .inner {\n  display: inline-block;\n  position: relative;\n  right: -50%;\n}\n\n.section-full-screen .inner img {\n  height: 100vh;\n  position: relative;\n  left: -50%;\n}\n\n@media (min-width: 600px) {\n  #speed-dial-desktop {\n    top: 26px;\n  }\n  #resume-button {\n    right: 80px;\n  }\n}\n\n@media (min-width: 742px) {\n  #speed-dial-desktop {\n    top: 20px;\n  }\n}\n\n@media (min-width: 960px) {\n  #speed-dial-desktop {\n    top: 36px;\n  }\n}\n", ""]);
+	exports.push([module.i, "#resume-container {\n  max-width: 80%;\n  width: 80%;\n}\n\n@media screen and (max-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media only screen and (max-device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media screen and (device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n#resume-container md-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 64, 129, 0.87);\n}\n\n#resume-container md-checkbox.md-checked[disabled] .md-label {\n  color: rgba(0, 0, 0, 0.76);\n}\n\n#resume-container md-content {\n  overflow-x: hidden;\n}\n\nmd-bottom-sheet {\n  position: fixed !important;\n}\n\n.active {\n  background-color: #ff4081 !important;\n}\n\n.active md-icon {\n  color: white !important;\n}\n\n.active span, .active div {\n  color: white !important;\n}\n\nmd-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 0, 0, 0.26);\n}\n\n.active.button-medium md-icon {\n  color: white !important;\n}\n\n.button-medium {\n  width: 50px !important;\n  height: 50px !important;\n  line-height: 50px !important;\n}\n\n.md-scale:not(.md-is-open) .md-fab-action-item {\n  opacity: 0;\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n}\n\n#current-role md-input-container .md-input[disabled] {\n  color: rgba(0, 0, 0, 0.85);\n}\n\nmd-input-container.md-input-invalid > md-icon.person {\n  color: red;\n}\n\n#background-gradient {\n  background: #3F51B5;\n  /* For browsers that do not support gradients */\n  /* For Safari 5.1 to 6.0 */\n  /* For Opera 11.1 to 12.0 */\n  /* For Firefox 3.6 to 15 */\n  background: linear-gradient(to right, #3F51B5, #7986CB);\n  /* Standard syntax */\n}\n\nsection img {\n  margin: 0 auto;\n}\n\n.transparent-background {\n  background-color: transparent;\n}\n\n.sample-show-hide {\n  transition: all linear 1s !important;\n}\n\n@media (max-width: 600px) {\n  .about-hide {\n    display: none !important;\n  }\n}\n\n.section-full-screen {\n  height: 100vh;\n  overflow-x: hidden;\n  margin: 0 auto;\n}\n\n.section-full-screen .inner {\n  display: inline-block;\n  position: relative;\n  right: -50%;\n}\n\n.section-full-screen .inner img {\n  height: 100vh;\n  position: relative;\n  left: -50%;\n}\n\n@media (min-width: 600px) {\n  #speed-dial-desktop {\n    top: 26px;\n  }\n  #resume-button {\n    right: 80px;\n  }\n}\n\n@media (min-width: 742px) {\n  #speed-dial-desktop {\n    top: 20px;\n  }\n}\n\n@media (min-width: 960px) {\n  #speed-dial-desktop {\n    top: 36px;\n  }\n}\n", ""]);
 
 	// exports
 
