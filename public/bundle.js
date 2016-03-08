@@ -66345,7 +66345,7 @@
 	    var ajaxCallback = function ajaxCallback(data, status, success) {
 	        $scope.loading = false;
 	        var template = 'Error';
-	        if (success === true && status === '200') {
+	        if (success === true && status === 200) {
 	            $scope.reset(form);
 	            template = 'Success';
 	        }
@@ -66353,7 +66353,7 @@
 	        $mdBottomSheet.show({
 	            template: __webpack_require__(46)("./send" + template + '.html'),
 	            disableParentScroll: false
-	        }).than(function () {
+	        }).then(function () {
 	            setTimeout(function () {
 	                $mdBottomSheet.hide();
 	            }, 3000);

@@ -5,7 +5,7 @@ export function contactController($scope, $http, $mdBottomSheet)
     var ajaxCallback = function(data, status, success){
         $scope.loading = false;
         var template = 'Error';
-        if(success === true && status === '200'){
+        if(success === true && status === 200){
             $scope.reset(form);
             template = 'Success';
         }
@@ -13,7 +13,7 @@ export function contactController($scope, $http, $mdBottomSheet)
         $mdBottomSheet.show({
             template: require('../views/components/send'+template+'.html'),
             disableParentScroll: false
-        }).than(function(){
+        }).then(function(){
             setTimeout(function(){
                 $mdBottomSheet.hide();
             }, 3000)
