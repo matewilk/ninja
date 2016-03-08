@@ -66341,9 +66341,9 @@
 	});
 	exports.contactController = contactController;
 	function contactController($scope, $http, $mdBottomSheet) {
-	    this.loading = false;
+	    $scope.loading = false;
 	    var ajaxCallback = function ajaxCallback(data, status, success) {
-	        this.loading = false;
+	        $scope.loading = false;
 	        var template = 'Error';
 	        if (success === true && status === '200') {
 	            $scope.reset(form);
@@ -66361,7 +66361,7 @@
 	    };
 
 	    $scope.submit = function (form) {
-	        this.loading = true;
+	        $scope.loading = true;
 	        $http({
 	            method: 'POST',
 	            url: '/api/send',
