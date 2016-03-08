@@ -1,4 +1,4 @@
-export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $document, $mdMedia, $mdDialog)
+export default function ($scope, $mdSidenav, $log, $timeout, $document, $mdMedia, $mdDialog)
 {
     $scope.toggleLeft = buildToggler('left');
     $scope.isOpenLeft = function(){
@@ -227,15 +227,4 @@ export default function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $do
             'Member of Microprocessor Autonomous Systems Academic Club - MIPSA.'
         ]
 	}];
-
-	$scope.addEvent = function() {
-		$scope.events.push({
-			badgeClass: 'info',
-			badgeIconClass: 'glyphicon-check',
-			title: 'Dynamic heading',
-			when: '3 hours ago via Twitter',
-			content: 'Some awesome content.'
-		});
-
-	};
 }

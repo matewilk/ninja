@@ -6,7 +6,7 @@
     <md-divider></md-divider>
 </div>
 <div ng-controller="ContactController" layout="column" layout-padding ng-cloak>
-    <form name="contactForm" class="container-fluid" ng-submit="submit()">
+    <form name="contactForm" class="container-fluid" ng-submit="submit(contactForm)">
       <md-content>
         <md-input-container class="md-icon-float md-block">
             <label>Name</label>
@@ -36,7 +36,7 @@
                 <div ng-message="required">Message subject is required.</div>
             </div>
         </md-input-container>
-        <md-input-container class="md-block">
+        <md-input-container class="md-block form-message">
             <label>Message</label>
             <md-icon aria-label="Message" class="material-icons">message</md-icon>
             <textarea name="message" id="message" ng-model="contact.message" ng-required="true" md-maxlength="150" rows="5" md-select-on-focus></textarea>

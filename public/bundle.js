@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 44);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -382,15 +382,15 @@
 
 	__webpack_require__(15);
 
-	__webpack_require__(40);
+	__webpack_require__(42);
 
 	__webpack_require__(8);
 
+	__webpack_require__(43);
+
 	__webpack_require__(41);
 
-	__webpack_require__(39);
-
-	__webpack_require__(42);
+	__webpack_require__(44);
 
 	var _config = __webpack_require__(26);
 
@@ -31119,7 +31119,7 @@
 	  };
 	}]);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)(module)))
 
 /***/ },
 /* 14 */
@@ -66332,7 +66332,7 @@
 
 /***/ },
 /* 22 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -66340,29 +66340,72 @@
 	    value: true
 	});
 	exports.contactController = contactController;
-	function contactController($scope, $http) {
-	    $scope.submit = function () {
+	function contactController($scope, $http, $mdBottomSheet) {
+	    $scope.submit = function (form) {
 	        $http({
 	            method: 'POST',
 	            url: '/api/send',
 	            data: $scope.contact,
 	            headers: { 'Content-Type': 'application/json' }
 	        }).success(function (data) {
-	            console.log('success');
+	            $scope.reset(form);
+	            $mdBottomSheet.show({
+	                template: __webpack_require__(40),
+	                disableParentScroll: false
+	            });
 	        }).error(function (data) {
-	            console.log('error');
+	            $mdBottomSheet.show({
+	                template: __webpack_require__(39),
+	                disableParentScroll: false
+	            });
 	        });
+
+	        setTimeout(function () {
+	            $mdBottomSheet.hide();
+	        }, 3000);
 	    };
 
-	    $scope.reset = function () {
-	        $scope.contact = {
-	            name: "",
-	            email: "",
-	            subject: "",
-	            message: ""
-	        };
+	    $scope.contact = {
+	        name: null,
+	        email: null,
+	        subject: null,
+	        message: null
 	    };
-	    $scope.reset();
+
+	    $scope.reset = function (form) {
+	        $scope.contact = {
+	            name: null,
+	            email: null,
+	            subject: null,
+	            message: null
+	        };
+	        form.$setPristine();
+	        form.$setUntouched();
+	        form.$valid = false;
+	        form.$invalid = true;
+	        form.$error = {};
+
+	        // form.$setPristine(true);
+	        // form.$setUntouched(true);
+
+	        // iterate over all from properties
+	        // angular.forEach(form, function(ctrl, name) {
+	        //   // ignore angular fields and functions
+	        //   if (name.indexOf('$') != 0) {
+	        //     // iterate over all $errors for each field
+	        //     angular.forEach(ctrl.$error, function(value, name) {
+	        //       // reset validity
+	        //       ctrl.$setValidity(name, null);
+	        //     });
+	        //   }
+
+	        //   let controlNames = Object.keys(form).filter(key => key.indexOf('$') !== 0);
+	        //   for (let name of controlNames) {
+	        //       let control = form[name];
+	        //       control.$setViewValue(undefined);
+	        //   }
+	        //});
+	    };
 	}
 
 /***/ },
@@ -66375,7 +66418,7 @@
 	      value: true
 	});
 
-	exports.default = function ($scope, $mdSidenav, $log, $timeout, $mdBottomSheet, $document, $mdMedia, $mdDialog) {
+	exports.default = function ($scope, $mdSidenav, $log, $timeout, $document, $mdMedia, $mdDialog) {
 	      $scope.toggleLeft = buildToggler('left');
 	      $scope.isOpenLeft = function () {
 	            return $mdSidenav('left').isOpen();
@@ -66523,16 +66566,6 @@
 	            when: '2003 - 2009',
 	            content: ['Faculty of Electrical, Electronic, Computer and Control Engineering.', 'Member of Microprocessor Autonomous Systems Academic Club - MIPSA.']
 	      }];
-
-	      $scope.addEvent = function () {
-	            $scope.events.push({
-	                  badgeClass: 'info',
-	                  badgeIconClass: 'glyphicon-check',
-	                  title: 'Dynamic heading',
-	                  when: '3 hours ago via Twitter',
-	                  content: 'Some awesome content.'
-	            });
-	      };
 	};
 
 /***/ },
@@ -66693,7 +66726,7 @@
 	exports.i(__webpack_require__(31), "");
 
 	// module
-	exports.push([module.i, "#resume-container {\n  max-width: 80%;\n  width: 80%;\n}\n\n@media screen and (max-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media only screen and (max-device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media screen and (device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n#resume-container md-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 64, 129, 0.87);\n}\n\n#resume-container md-checkbox.md-checked[disabled] .md-label {\n  color: rgba(0, 0, 0, 0.76);\n}\n\n#resume-container md-content {\n  overflow-x: hidden;\n}\n\nmd-bottom-sheet {\n  position: fixed !important;\n}\n\n.active {\n  background-color: #ff4081 !important;\n}\n\n.active md-icon {\n  color: white !important;\n}\n\n.active span, .active div {\n  color: white !important;\n}\n\nmd-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 0, 0, 0.26);\n}\n\n.active.button-medium md-icon {\n  color: white !important;\n}\n\n.button-medium {\n  width: 50px !important;\n  height: 50px !important;\n  line-height: 50px !important;\n}\n\n.md-scale:not(.md-is-open) .md-fab-action-item {\n  opacity: 0;\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n}\n\n#current-role md-input-container .md-input[disabled] {\n  color: rgba(0, 0, 0, 0.85);\n}\n\nmd-input-container.md-input-invalid > md-icon.person {\n  color: red;\n}\n\n#background-gradient {\n  background: #3F51B5;\n  /* For browsers that do not support gradients */\n  /* For Safari 5.1 to 6.0 */\n  /* For Opera 11.1 to 12.0 */\n  /* For Firefox 3.6 to 15 */\n  background: linear-gradient(to right, #3F51B5, #7986CB);\n  /* Standard syntax */\n}\n\nsection img {\n  margin: 0 auto;\n}\n\n.transparent-background {\n  background-color: transparent;\n}\n\n.sample-show-hide {\n  transition: all linear 1s !important;\n}\n\n@media (max-width: 600px) {\n  .about-hide {\n    display: none !important;\n  }\n}\n\n.section-full-screen {\n  height: 100vh;\n  overflow-x: hidden;\n  margin: 0 auto;\n}\n\n.section-full-screen .inner {\n  display: inline-block;\n  position: relative;\n  right: -50%;\n}\n\n.section-full-screen .inner img {\n  height: 100vh;\n  position: relative;\n  left: -50%;\n}\n\n@media (min-width: 600px) {\n  #speed-dial-desktop {\n    top: 26px;\n  }\n  #resume-button {\n    right: 80px;\n  }\n}\n\n@media (min-width: 742px) {\n  #speed-dial-desktop {\n    top: 20px;\n  }\n}\n\n@media (min-width: 960px) {\n  #speed-dial-desktop {\n    top: 36px;\n  }\n}\n", ""]);
+	exports.push([module.i, "#resume-container {\n  max-width: 80%;\n  width: 80%;\n}\n\n@media screen and (max-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media only screen and (max-device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n@media screen and (device-width: 742px) {\n  #resume-container {\n    max-width: 100%;\n    width: 100%;\n  }\n}\n\n#resume-container md-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 64, 129, 0.87);\n}\n\n#resume-container md-checkbox.md-checked[disabled] .md-label {\n  color: rgba(0, 0, 0, 0.76);\n}\n\n#resume-container md-content {\n  overflow-x: hidden;\n}\n\nmd-bottom-sheet {\n  position: fixed !important;\n}\n\n.active {\n  background-color: #ff4081 !important;\n}\n\n.active md-icon {\n  color: white !important;\n}\n\n.active span, .active div {\n  color: white !important;\n}\n\nmd-checkbox.md-checked[disabled].red .md-icon {\n  background-color: rgba(255, 0, 0, 0.26);\n}\n\n.active.button-medium md-icon {\n  color: white !important;\n}\n\n.button-medium {\n  width: 50px !important;\n  height: 50px !important;\n  line-height: 50px !important;\n}\n\n.md-scale:not(.md-is-open) .md-fab-action-item {\n  opacity: 0;\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n}\n\n#current-role md-input-container .md-input[disabled] {\n  color: rgba(0, 0, 0, 0.85);\n}\n\nmd-input-container.md-input-invalid > md-icon.person {\n  color: red;\n}\n\n#background-gradient {\n  background: #3F51B5;\n  /* For browsers that do not support gradients */\n  /* For Safari 5.1 to 6.0 */\n  /* For Opera 11.1 to 12.0 */\n  /* For Firefox 3.6 to 15 */\n  background: linear-gradient(to right, #3F51B5, #7986CB);\n  /* Standard syntax */\n}\n\nsection img {\n  margin: 0 auto;\n}\n\n.transparent-background {\n  background-color: transparent;\n}\n\n.sample-show-hide {\n  transition: all linear 1s !important;\n}\n\n@media (max-width: 600px) {\n  .about-hide {\n    display: none !important;\n  }\n}\n\n.section-full-screen {\n  height: 100vh;\n  overflow-x: hidden;\n  margin: 0 auto;\n}\n\n.section-full-screen .inner {\n  display: inline-block;\n  position: relative;\n  right: -50%;\n}\n\n.section-full-screen .inner img {\n  height: 100vh;\n  position: relative;\n  left: -50%;\n}\n\n@media (min-width: 600px) {\n  #speed-dial-desktop {\n    top: 26px;\n  }\n  #resume-button {\n    right: 80px;\n  }\n}\n\n@media (min-width: 742px) {\n  #speed-dial-desktop {\n    top: 20px;\n  }\n}\n\n@media (min-width: 960px) {\n  #speed-dial-desktop {\n    top: 36px;\n  }\n}\n\n.form-message label {\n  padding-left: 35px !important;\n}\n\n.form-message textarea {\n  padding-left: 30px !important;\n  height: 80px !important;\n}\n", ""]);
 
 	// exports
 
@@ -66772,6 +66805,18 @@
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.e = "<md-bottom-sheet class=\"md-grid\" layout=\"column\" ng-cloak du-spy-context>\n    <div layout=\"column\" layout-align=\"center center\">\n        <p>\n            <md-icon aria-label=\"send error\" class=\"material-icons\" ng-style=\"{'font-size': '48px', 'color': 'rgb(255,64,129)'}\">\n                bug_report\n            </md-icon>\n        </p>\n        <h4>Ups! Something went wrong.</h4>\n        <h5>Please try again.</h5>\n    </div>\n</md-bottom-sheet>\n"
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.e = "<md-bottom-sheet class=\"md-grid\" layout=\"column\" ng-cloak du-spy-context>\n    <div layout=\"column\" layout-align=\"center center\">\n        <p>\n            <md-icon aria-label=\"send success\" class=\"material-icons\" ng-style=\"{'font-size': '48px', 'color': '#00E676'}\">\n                check_circle\n            </md-icon>\n        </p>\n        <h4>Thanks for contacting me!</h4>\n        <h5>Message sent successfully!</h5>\n    </div>\n</md-bottom-sheet>\n"
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
@@ -66795,7 +66840,7 @@
 	}
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -66821,7 +66866,7 @@
 	}
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -66847,7 +66892,7 @@
 	}
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -66873,7 +66918,7 @@
 	}
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = function(module) {
@@ -66905,7 +66950,7 @@
 
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__(4);

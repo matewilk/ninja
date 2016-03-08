@@ -66,3 +66,14 @@ section img {
         top: 36px;
     }
 }
+
+.form-message {
+    label {
+        padding-left: 35px !important;
+    }
+
+    textarea {
+        padding-left: 30px !important;
+        height: 80px !important;
+    }
+}
