@@ -14,7 +14,8 @@ var nodemailer = require('nodemailer'),
 var send = function (data, callback) {
     mailOptions.from = '"Front End Dev Ninja Request "'+data.email,
     mailOptions.subject = data.subject +' from '+ data.name;
-    mailOptions.text = data.message;
+    mailOptions.text = data.message + ' email: ' + data.email;
+    mailOptions.replayTo = data.email;
     transporter.sendMail(mailOptions, function (error, info) {
         if(error){
             return console.log(error);

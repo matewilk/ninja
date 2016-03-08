@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 46);
+/******/ 	return __webpack_require__(__webpack_require__.s = 47);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -66341,28 +66341,37 @@
 	});
 	exports.contactController = contactController;
 	function contactController($scope, $http, $mdBottomSheet) {
+	    this.loading = false;
+	    var ajaxCallback = function ajaxCallback(data, status, success) {
+	        this.loading = false;
+	        var template = 'Error';
+	        if (success === true && status === '200') {
+	            $scope.reset(form);
+	            template = 'Success';
+	        }
+
+	        $mdBottomSheet.show({
+	            template: __webpack_require__(46)("./send" + template + '.html'),
+	            disableParentScroll: false
+	        }).than(function () {
+	            setTimeout(function () {
+	                $mdBottomSheet.hide();
+	            }, 3000);
+	        });
+	    };
+
 	    $scope.submit = function (form) {
+	        this.loading = true;
 	        $http({
 	            method: 'POST',
 	            url: '/api/send',
 	            data: $scope.contact,
 	            headers: { 'Content-Type': 'application/json' }
-	        }).success(function (data) {
-	            $scope.reset(form);
-	            $mdBottomSheet.show({
-	                template: __webpack_require__(40),
-	                disableParentScroll: false
-	            });
-	        }).error(function (data) {
-	            $mdBottomSheet.show({
-	                template: __webpack_require__(39),
-	                disableParentScroll: false
-	            });
+	        }).success(function (data, status) {
+	            ajaxCallback(data, status, true);
+	        }).error(function (data, status) {
+	            ajaxCallback(data, status, false);
 	        });
-
-	        setTimeout(function () {
-	            $mdBottomSheet.hide();
-	        }, 3000);
 	    };
 
 	    $scope.contact = {
@@ -66384,27 +66393,6 @@
 	        form.$valid = false;
 	        form.$invalid = true;
 	        form.$error = {};
-
-	        // form.$setPristine(true);
-	        // form.$setUntouched(true);
-
-	        // iterate over all from properties
-	        // angular.forEach(form, function(ctrl, name) {
-	        //   // ignore angular fields and functions
-	        //   if (name.indexOf('$') != 0) {
-	        //     // iterate over all $errors for each field
-	        //     angular.forEach(ctrl.$error, function(value, name) {
-	        //       // reset validity
-	        //       ctrl.$setValidity(name, null);
-	        //     });
-	        //   }
-
-	        //   let controlNames = Object.keys(form).filter(key => key.indexOf('$') !== 0);
-	        //   for (let name of controlNames) {
-	        //       let control = form[name];
-	        //       control.$setViewValue(undefined);
-	        //   }
-	        //});
 	    };
 	}
 
@@ -66951,6 +66939,31 @@
 
 /***/ },
 /* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./sendError.html": 39,
+		"./sendSuccess.html": 40
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		var id = map[req];
+		if(!(id + 1)) // check for number
+			throw new Error("Cannot find module '" + req + "'.");
+		return id;
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.e = webpackContext;
+	webpackContext.id = 46;
+
+
+/***/ },
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.e = __webpack_require__(4);
