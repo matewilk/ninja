@@ -66342,7 +66342,7 @@
 	exports.contactController = contactController;
 	function contactController($scope, $http, $mdBottomSheet) {
 	    $scope.loading = false;
-	    var ajaxCallback = function ajaxCallback(data, status, success) {
+	    var ajaxCallback = function ajaxCallback(data, status, success, form) {
 	        $scope.loading = false;
 	        var template = 'Error';
 	        if (success === true && status === 200) {
@@ -66368,7 +66368,7 @@
 	            data: $scope.contact,
 	            headers: { 'Content-Type': 'application/json' }
 	        }).success(function (data, status) {
-	            ajaxCallback(data, status, true);
+	            ajaxCallback(data, status, true, form);
 	        }).error(function (data, status) {
 	            ajaxCallback(data, status, false);
 	        });
