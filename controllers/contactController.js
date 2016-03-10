@@ -13,11 +13,10 @@ export function contactController($scope, $http, $mdBottomSheet)
         $mdBottomSheet.show({
             template: require('../views/components/send'+template+'.html'),
             disableParentScroll: false
-        }).then(function(){
-            setTimeout(function(){
-                $mdBottomSheet.hide();
-            }, 3000)
         });
+        setTimeout(function(){
+            $mdBottomSheet.hide();
+        }, 3000)
     }
 
     $scope.submit = function(form) {

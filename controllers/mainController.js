@@ -1,4 +1,4 @@
-export default function ($scope, $mdSidenav, $log, $timeout, $document, $mdMedia, $mdDialog)
+export default function ($scope, $mdSidenav, $log, $document, $mdMedia, $mdDialog, $http, $mdBottomSheet)
 {
     $scope.toggleLeft = buildToggler('left');
     $scope.isOpenLeft = function(){
@@ -12,6 +12,40 @@ export default function ($scope, $mdSidenav, $log, $timeout, $document, $mdMedia
         return function() {
             $mdSidenav(navID).toggle()
         }
+    }
+
+    $scope.downloadResume = function($event) {
+        $event.preventDefault();
+        $http({
+            url : '/api/resume',
+            method : 'POST',
+            params : {},
+            headers : {
+                'Content-type' : 'application/pdf',
+            },
+            responseType : 'arraybuffer'
+        })
+        .success(function(data, status, headers, config) {
+            var file = new Blob([ data ], {
+                type : 'application/pdf'
+            });
+            //trick to download store a file having its URL
+            var fileURL = URL.createObjectURL(file);
+            var a         = document.createElement('a');
+            a.href        = fileURL;
+            a.target      = '_blank';
+            a.download    = 'mateusz_wilk_resume.pdf';
+            document.body.appendChild(a);
+            a.click();
+        }).error(function(data, status, headers, config) {
+            $mdBottomSheet.show({
+                template: require('../views/components/sendError.html'),
+                disableParentScroll: false
+            });
+            setTimeout(function(){
+                $mdBottomSheet.hide();
+            }, 3000)
+        });
     }
 
     $scope.showAdvanced = function(ev) {
