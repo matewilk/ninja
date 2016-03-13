@@ -13,8 +13,9 @@ export function aboutController($scope, $http)
         //can't refer to the oldVal as it will create infinite loop
         $scope.skills = {
             javascript: 85,
-            html: 80,
-            css: 80
+            htmlcss: 80,
+            ciagile: 75,
+            tddbdd: 82
         }
     }, true);
 

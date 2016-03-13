@@ -2,9 +2,9 @@
     <md-toolbar>
       <div class="md-toolbar-tools">
         <div>{{contents[0].title}}</div>
-        <span flex></span>
+        <div flex></div>
         <div ng-style="{'color': 'rgba(0,0,0,0.54)'}"><span>{{ contents[0].company +' '+contents[0].when }}</span></div>
-        <span flex></span>
+        <div flex></div>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
         </md-button>
@@ -40,7 +40,7 @@
         </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <span flex></span>
+      <div flex></div>
       <md-button ng-click="cancel()" style="margin-right:20px;">
         Close
       </md-button>

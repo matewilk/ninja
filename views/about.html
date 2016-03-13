@@ -51,18 +51,22 @@
     </div>
     <div flex>
         <!-- media query padding-top 30px for wider than sm || align labels left for sm -->
-        <md-content layout-padding>
+        <md-content layout-padding class="skills">
             <div>
-                <p>Javascript</p>
+                <p>JavaScript</p>
                 <md-progress-linear md-mode="determinate" class="md-accent" value="{{skills.javascript}}"></md-progress-linear>
             </div>
             <div>
-                <p>Html</p>
-                <md-progress-linear md-mode="determinate" value="{{skills.html}}"></md-progress-linear>
+                <p>Html/Css</p>
+                <md-progress-linear md-mode="determinate" value="{{skills.htmlcss}}"></md-progress-linear>
             </div>
             <div>
-                <p>Css</p>
-                <md-progress-linear md-mode="determinate" value="{{skills.css}}"></md-progress-linear>
+                <p>Continuous Integration/Agile</p>
+                <md-progress-linear md-mode="determinate" value="{{skills.ciagile}}"></md-progress-linear>
+            </div>
+            <div>
+                <p>TDD/BDD</p>
+                <md-progress-linear md-mode="determinate" value="{{skills.tddbdd}}"></md-progress-linear>
             </div>
         </md-content>
     </div>
