@@ -3,10 +3,11 @@
 <head>
     <title>Front End Dev</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <style>*[ng-cloak] {display:none;}</style>
     <base href="/">
 </head>
 <body ng-cloak layout="column">
-    <div ng-controller="MainCtrl" class="relative" layout-fill role="main">
+    <div ng-controller="MainCtrl" class="relative" layout-fill role="main" ng-cloak>
         <md-toolbar class="md-whiteframe-z3 md-primary" style="position:fixed">
             <div class="md-toolbar-tools">
                 <md-icon aria-label="Front End Dev Mateusz Wilk" class="material-icons">developer_mode</md-icon>
