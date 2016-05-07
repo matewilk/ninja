@@ -1,12 +1,12 @@
 @import './animate';
 @import './material-overrides';
 
-#background-gradient {
+.background-gradient {
   background: #3F51B5; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, #3F51B5 , #7986CB); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, #3F51B5, #7986CB); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, #3F51B5, #7986CB); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, #3F51B5 , #7986CB); /* Standard syntax */
+  background: -webkit-linear-gradient(left, darken( #3F51B5, 10%), #3F51B5); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, darken( #3F51B5, 10%), #3F51B5); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, darken( #3F51B5, 10%), #3F51B5); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, darken( #3F51B5, 10%), #3F51B5); /* Standard syntax */
 }
 
 section img {

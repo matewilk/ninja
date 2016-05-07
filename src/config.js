@@ -20,7 +20,7 @@ const app = angular.module('app', [
     'angular-inview',
 ]);
 
-app.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
+app.config(($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) => {
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('main', {
