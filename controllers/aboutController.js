@@ -22,7 +22,7 @@ export function aboutController($scope, $http)
     $scope.about = {
         first: 'I\'m a strong advocate of extreme programming and agile methodologies.'+
             'Testability, maintainability, modularity and usability is a hight priority to me. '+
-            'JavaScript is on of the most flexible and powerful langueages out there, but with great power, comes great responsibility.',
+            'JavaScript is one of the most flexible and powerful langueages out there, but with great power, comes great responsibility.',
         second: 'A JavaScript framework is a tool for me, not the holy grail of best practices, '+
             'they all solve same issues in different ways! If you ask me which framework to choose or which one is the best, '+
             'I\'ll first ask, what\'s the problem.',
