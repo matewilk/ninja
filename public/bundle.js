@@ -66276,7 +66276,13 @@
 	function aboutController($scope, $http) {
 	    $scope.showmore = true;
 	
-	    $scope.user = {
+	    $scope.currentRole = {
+	        title: 'Senior/Lead Software Engineer',
+	        location: 'London/Slough',
+	        company: 'O2/Telefonica'
+	    };
+	
+	    $scope.prevRole = {
 	        title: 'Senior Web Developer',
 	        location: 'London',
 	        company: 'BBC'
@@ -66483,11 +66489,21 @@
 	
 	    $scope.events = [{
 	        badgeClass: 'info',
+	        side: 'Left',
+	        badgeIconClass: 'keyboard',
+	        title: 'Senior/Lead Software Engineer',
+	        company: 'O2',
+	        when: 'May 2016 - present',
+	        content: ['Leading technical and architectural design of the product', 'Fast prototyping first versions of the application', 'Setting up quality standards for the team', 'Leading on developing substantial components of the product including database, API and UI areas', 'Prototyping crucial components', 'Spreading best practices across the team including programming, agile methodologies, product development approach and development workflow', 'Setting up Continuous Integration workflow, environment and pipeline'],
+	        tools: 'ES6, React.js, Angular.js, Node.js, Express.js, Jasmine.js, Sinon, Chai, Mocha, Jenkins, Webpack, AWS',
+	        toolsIcon: 'keyboard'
+	    }, {
+	        badgeClass: 'info',
 	        side: 'Right',
 	        badgeIconClass: 'keyboard',
 	        title: 'Senior Web Developer',
 	        company: 'BBC',
-	        when: '2016 - present',
+	        when: 'until May 2016',
 	        content: ['Creating prototype and developing award winning BBC\'s Authentication Tool app.', 'Creating prototype and taking active part in designing responsive version of BBC\'s CMS (iSite2)', 'Developing responsive components and delivering new functionalities for the product (iSite2)', 'Collaborating with other BBC\'s teams to ensure best product functionality and compatibility', 'Advising the Product Manager or Technical Project Manager to ensure that all technical possibilities are explored and that products achieve the best possible look, feel and functionality', 'Evaluating time needed to develop certain features and developing the features in a given timescale', 'Suggesting and using solutions and libraries to shorten development time and/or effort', 'Advise on strategic technology issues', 'Assistance with recruitment', 'Mentoring and coaching of less experienced members of the team', 'Developing new features and products for the organisation', 'Redesigning existing functionality using proven development methodologies, processes and patterns along with the latest technology', 'Estimating Stories (Agile Scrum) development time, breaking them down into tasks and making sure they are delivered in a given timeframe (Sprint) - panning and prioritizing tasks', 'Resolving accessibility, usability and cross browser issues', 'Working with 3rd party products/libraries'],
 	        long: true,
 	        tools: 'Plain Javascript, React.js, Node.js, Backbone.js, Require.js, Express.js, ES6, ' + 'Sass, Bootstrap, Angular-Material, ' + 'Behat, PhpUnit, Mocha, Chai, Sinon, Jasmine, ' + 'Hudson, Heroku, AWS, Jenkins, AWS CodeDeploy and CodePipeline, ' + 'Bower, Grunt, Vagrant, Webpack, Require, Yeoman, Jshint, JsLint, JsBin, Js minifiers and more ...',
