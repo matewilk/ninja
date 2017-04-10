@@ -36,38 +36,35 @@
             <form>
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Current Role</label>
-                    <input ng-model="user.title" disabled>
+                    <input ng-model="currentRole.title" disabled>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Current Company</label>
-                    <input ng-model="user.company" disabled>
+                    <input ng-model="currentRole.company" disabled>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-xs>
                     <label>Current Location</label>
-                    <input ng-model="user.location" disabled>
+                    <input ng-model="currentRole.location" disabled>
                 </md-input-container>
             </form>
         </md-content>
     </div>
     <div flex>
-        <!-- media query padding-top 30px for wider than sm || align labels left for sm -->
-        <md-content layout-padding class="skills">
-            <div>
-                <p>JavaScript</p>
-                <md-progress-linear md-mode="determinate" class="md-accent" value="{{skills.javascript}}"></md-progress-linear>
-            </div>
-            <div>
-                <p>Html/Css</p>
-                <md-progress-linear md-mode="determinate" value="{{skills.htmlcss}}"></md-progress-linear>
-            </div>
-            <div>
-                <p>Continuous Integration/Agile</p>
-                <md-progress-linear md-mode="determinate" value="{{skills.ciagile}}"></md-progress-linear>
-            </div>
-            <div>
-                <p>TDD/BDD</p>
-                <md-progress-linear md-mode="determinate" value="{{skills.tddbdd}}"></md-progress-linear>
-            </div>
-        </md-content>
+      <md-content layout-padding>
+          <form>
+              <md-input-container class="md-block" flex-gt-xs>
+                  <label>Previous Role</label>
+                  <input ng-model="prevRole.title" disabled>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-xs>
+                  <label>Previous Company</label>
+                  <input ng-model="prevRole.company" disabled>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-xs>
+                  <label>Previous Location</label>
+                  <input ng-model="prevRole.location" disabled>
+              </md-input-container>
+          </form>
+      </md-content>
     </div>
 </div>

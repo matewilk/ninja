@@ -17,7 +17,7 @@ const app = angular.module('app', [
     'duScroll',
     'ngAnimate',
     'angular-timeline',
-    'angular-inview',
+    'angular-inview'
 ]);
 
 app.config(($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) => {

@@ -8,9 +8,9 @@ import 'angular-timeline/dist/angular-timeline.scss';
 import 'angular-inview/angular-inview';
 
 /* styles */
-import '../styles/main.scss'
+import '../styles/main.scss';
 import '../node_modules/angular-material/angular-material.scss';
-import '../node_modules/material-design-icons/iconfont/material-icons.css'
+import '../node_modules/material-design-icons/iconfont/material-icons.css';
 
 /* app */
 import appModule from './config';
