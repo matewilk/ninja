@@ -6,17 +6,19 @@ export function aboutController($scope, $http)
     $scope.currentRole = {
         title: 'Senior/Lead Software Engineer',
         location: 'London/Slough',
-        company: 'O2/Telefonica'
+        company: 'O2/Telefonica',
+        education: 'Master Degree in CS, 8+ years of professional experience'
     };
 
-    $scope.prevRole = {
-        title: 'Senior Web Developer',
-        location: 'London',
-        company: 'BBC'
+    $scope.keySkills = {
+        programming: 'ES6, vanilla js, React.js, Angular.js, Node.js, Express.js, jQuery, Backbone.js',
+        testing: 'TDDs, BDDs, jasmine, mocha, karma, sinon, chai, browser stack, phantomjs ',
+        ci: 'AWS, Jenkins, Code Deploy, Code Pipeline, bash scripting',
+        soft: 'Agile Scrum, various project development processes, mentoring'
     };
 
     $scope.$watch('skills', function (newVal, oldVal) {
-        //can't refer to the oldVal as it will create infinite loop
+        //can't refer to the oldVal as it creates infinite loop
         $scope.skills = {
             javascript: 85,
             htmlcss: 80,

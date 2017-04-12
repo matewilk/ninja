@@ -46,6 +46,10 @@
                     <label>Current Location</label>
                     <input ng-model="currentRole.location" disabled>
                 </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Education</label>
+                    <input ng-model="currentRole.education" disabled>
+                </md-input-container>
             </form>
         </md-content>
     </div>
@@ -53,16 +57,20 @@
       <md-content layout-padding>
           <form>
               <md-input-container class="md-block" flex-gt-xs>
-                  <label>Previous Role</label>
-                  <input ng-model="prevRole.title" disabled>
+                  <label>Key skills</label>
+                  <input ng-model="keySkills.programming" disabled>
               </md-input-container>
               <md-input-container class="md-block" flex-gt-xs>
-                  <label>Previous Company</label>
-                  <input ng-model="prevRole.company" disabled>
+                  <label>Testing</label>
+                  <input ng-model="keySkills.testing" disabled>
               </md-input-container>
               <md-input-container class="md-block" flex-gt-xs>
-                  <label>Previous Location</label>
-                  <input ng-model="prevRole.location" disabled>
+                  <label>Continuous Integration</label>
+                  <input ng-model="keySkills.ci" disabled>
+              </md-input-container>
+              <md-input-container class="md-block" flex-gt-xs>
+                  <label>Soft skills</label>
+                  <input ng-model="keySkills.soft" disabled>
               </md-input-container>
           </form>
       </md-content>
